@@ -110,7 +110,7 @@ Visit http://localhost:3000
 This project is shared publicly for educational and portfolio purposes only.  
 Copying, redistributing, or using this code for commercial purposes is not allowed without permission.
 
-See the LICENSE file for details.
+See the [LICENSE](LICENSE) file for details.
 
 ---
 
