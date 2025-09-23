@@ -100,7 +100,7 @@ flowchart TD
 ```
 
 ### Level 2 DFD (Detailed)
-- P1: Product Browsing
+#### P1: Product Browsing
   ```mermaid
   flowchart TD
   Visitor[Visitor] -->|Choose Category| P1_1((P1.1: View Categories))
@@ -115,7 +115,7 @@ flowchart TD
   P1_4 --> ProductDB
   P1_4 --> DiscountDB[(Discounts)]
 ```
-- P6: Admin CRUD
+#### P6: Admin CRUD
 ```mermaid
 flowchart TD
   Admin[Admin] -->|Add/Edit/Delete Categories| P6_1((P6.1: Manage Categories))
