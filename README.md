@@ -60,18 +60,77 @@ manali-mart-website/
 
 ## Project Data Flow
 
-```mermaid
-graph TD;
-  User[Website Visitor] -->|Visits Website| HomePage
-  HomePage -->|Clicks Category| ProductList
-  HomePage -->|Sees Banners| BannerSection
-  User -->|Submits Contact Form| ContactForm --> API["API Route: /api/contact"] --> Email[Email or server storage]
+### Level 0 (Context Diagram)
 
-  Admin[Admin Panel] --> AdminPanel
-  AdminPanel -->|CRUD Operations| Products["Products stored in server/database"]
-  AdminPanel -->|CRUD Operations| Categories["Categories stored in server/database"]
-  AdminPanel -->|CRUD Operations| Banners["Banners stored in server/database"]
-  AdminPanel -->|CRUD Operations| Discounts["Discount Banners stored in server/database"]
+```mermaid
+flowchart LR
+  Visitor[Visitor] -->|View categories, products, offers| Mart((Mart Website))
+  Mart -->|Show products, categories, offers, discounts| Visitor
+  Admin[Admin] -->|CRUD operations| Mart
+  Mart -->|Authentication success/failure| Admin
+```
+
+### Level 1 DFD
+
+```mermaid
+flowchart TD
+  Visitor[Visitor] -->|Browse/Search Products| P1((P1: Product Browsing))
+  Visitor -->|View Offers/Discounts| P2((P2: Offer & Discount Display))
+  Visitor -->|View About/Contact Page| P3((P3: Static Pages))
+  Visitor -->|Submit Contact Form| P4((P4: Contact Query Management))
+
+  Admin[Admin] -->|Login| P5((P5: Admin Authentication))
+  P5 --> AdminDB[(Admin Users DB)]
+
+  Admin -->|CRUD Items, Offers, Discounts, Queries| P6((P6: Admin CRUD Operations))
+
+  %% Data Stores
+  P1 --> ProductDB[(Products DB)]
+  P1 --> CategoryDB[(Categories DB)]
+  P1 --> SubcategoryDB[(Subcategories DB)]
+  P2 --> OfferDB[(Offers DB)]
+  P2 --> DiscountDB[(Discounts DB)]
+  P4 --> ContactDB[(Contact Queries DB)]
+  P6 --> ProductDB
+  P6 --> CategoryDB
+  P6 --> SubcategoryDB
+  P6 --> OfferDB
+  P6 --> DiscountDB
+  P6 --> ContactDB
+```
+
+### Level 2 DFD (Detailed)
+- P1: Product Browsing
+  ```mermaid
+  flowchart TD
+  Visitor[Visitor] -->|Choose Category| P1_1((P1.1: View Categories))
+  Visitor -->|Search Items| P1_2((P1.2: Search Products))
+  Visitor -->|Apply Filters| P1_3((P1.3: Apply Filters))
+  Visitor -->|View Product Details| P1_4((P1.4: Product Description Page))
+
+  P1_1 --> CategoryDB[(Categories)]
+  P1_1 --> SubcategoryDB[(Subcategories)]
+  P1_2 --> ProductDB[(Products)]
+  P1_3 --> ProductDB
+  P1_4 --> ProductDB
+  P1_4 --> DiscountDB[(Discounts)]
+```
+- P6: Admin CRUD
+```mermaid
+flowchart TD
+  Admin[Admin] -->|Add/Edit/Delete Categories| P6_1((P6.1: Manage Categories))
+  Admin -->|Add/Edit/Delete Subcategories| P6_2((P6.2: Manage Subcategories))
+  Admin -->|Add/Edit/Delete Products| P6_3((P6.3: Manage Products))
+  Admin -->|Add/Edit/Delete Offers| P6_4((P6.4: Manage Offers))
+  Admin -->|Add/Edit/Delete Discounts| P6_5((P6.5: Manage Discounts))
+  Admin -->|View/Resolve Queries| P6_6((P6.6: Manage Contact Queries))
+
+  P6_1 --> CategoryDB[(Categories)]
+  P6_2 --> SubcategoryDB[(Subcategories)]
+  P6_3 --> ProductDB[(Products)]
+  P6_4 --> OfferDB[(Offers)]
+  P6_5 --> DiscountDB[(Discounts)]
+  P6_6 --> ContactDB[(Contact Queries)]
 ```
 
 ---
