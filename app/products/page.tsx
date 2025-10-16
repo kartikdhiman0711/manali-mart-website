@@ -103,6 +103,7 @@ export default function Products() {
 
   const sampleProducts = [
     {
+      id: 'amul-toned-milk',
       name: 'Amul Toned Milk',
       price: '₹28/500ml',
       category: 'Dairy & Frozen',
@@ -114,6 +115,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'basmati-rice-premium',
       name: 'Basmati Rice Premium',
       price: '₹180/kg',
       category: 'Grocery & Daily Needs',
@@ -125,6 +127,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'lays-classic-chips',
       name: 'Lays Classic Chips',
       price: '₹20/pack',
       category: 'Snacks & Drinks',
@@ -136,6 +139,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'surf-excel-detergent',
       name: 'Surf Excel Detergent',
       price: '₹85/500g',
       category: 'Household Essentials',
@@ -147,6 +151,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'himalaya-face-wash',
       name: 'Himalaya Face Wash',
       price: '₹65/100ml',
       category: 'Beauty & Personal Care',
@@ -158,6 +163,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'pedigree-dog-food',
       name: 'Pedigree Dog Food',
       price: '₹320/1.2kg',
       category: 'Pet Food & Accessories',
@@ -169,6 +175,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'cerelac-baby-food',
       name: 'Cerelac Baby Food',
       price: '₹185/300g',
       category: 'Kids Food & Accessories',
@@ -180,6 +187,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
+      id: 'mother-dairy-paneer',
       name: 'Mother Dairy Paneer',
       price: '₹90/200g',
       category: 'Dairy & Frozen',
@@ -359,6 +367,11 @@ export default function Products() {
                       {product.brand}
                     </Badge>
                   </div>
+                  <Link href={`/products/${product.id}`}>
+                    <Button className="w-full mt-3 bg-green-700 hover:bg-green-800">
+                      View Details
+                    </Button>
+                  </Link>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">{product.name}</CardTitle>
                     <div className="flex items-center justify-between">
