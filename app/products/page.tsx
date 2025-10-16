@@ -367,11 +367,6 @@ export default function Products() {
                       {product.brand}
                     </Badge>
                   </div>
-                  <Link href={`/products/${product.id}`}>
-                    <Button className="w-full mt-3 bg-green-700 hover:bg-green-800">
-                      View Details
-                    </Button>
-                  </Link>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">{product.name}</CardTitle>
                     <div className="flex items-center justify-between">
@@ -390,6 +385,11 @@ export default function Products() {
                       <span className="text-xl font-bold text-green-700">{product.price}</span>
                       <Tag className="h-5 w-5 text-gray-400" />
                     </div>
+                    <Link href={`/products/${product.id}`}>
+                      <Button className="w-full mt-3 text-white bg-green-700 hover:bg-green-800">
+                        View Details
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               ))}
