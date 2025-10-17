@@ -1,26 +1,19 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Search, 
-  Menu, 
-  X, 
-  Mountain,
-  ChevronLeft,
-  ChevronRight,
-  Percent,
-  Tag,
-  Star
-} from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ChevronLeft, ChevronRight, Percent, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
+import { categories } from '@/lib/categories';
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const heroSlides = [
     {
@@ -54,58 +47,6 @@ export default function Home() {
       discount: "30% OFF",
       image: "https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=800",
       color: "from-pink-600 to-purple-600"
-    }
-  ];
-
-  const categories = [
-    {
-      name: 'Dairy & Frozen',
-      image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Fresh dairy products and frozen foods',
-      itemCount: '150+ items',
-      subcategories: ['Milk & Milk Products', 'Curd & Yogurt', 'Butter & Ghee', 'Cheese', 'Paneer & Cream', 'Frozen Vegetables', 'Ice Cream & Desserts']
-    },
-    {
-      name: 'Grocery & Daily Needs',
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Essential groceries and daily necessities',
-      itemCount: '300+ items',
-      subcategories: ['Atta, Rice & Grains', 'Spices & Masalas', 'Oils & Ghee', 'Sugar & Salt', 'Dry Fruits & Nuts', 'Tea & Coffee']
-    },
-    {
-      name: 'Snacks & Drinks',
-      image: 'https://images.pexels.com/photos/1089930/pexels-photo-1089930.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Delicious snacks and refreshing beverages',
-      itemCount: '200+ items',
-      subcategories: ['Chips & Namkeen', 'Biscuits & Cookies', 'Chocolates & Candies', 'Packaged Juices', 'Soft Drinks & Soda']
-    },
-    {
-      name: 'Household Essentials',
-      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Cleaning supplies and household items',
-      itemCount: '180+ items',
-      subcategories: ['Cleaning Supplies', 'Laundry Care', 'Paper & Tissue Products', 'Air Fresheners & Repellents']
-    },
-    {
-      name: 'Beauty & Personal Care',
-      image: 'https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Personal care and beauty products',
-      itemCount: '250+ items',
-      subcategories: ['Skin Care', 'Hair Care', 'Oral Care', 'Bath & Body', 'Men\'s Grooming', 'Women\'s Care']
-    },
-    {
-      name: 'Pet Food & Accessories',
-      image: 'https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Food and accessories for your pets',
-      itemCount: '80+ items',
-      subcategories: ['Dog Food', 'Cat Food', 'Pet Accessories', 'Pet Care']
-    },
-    {
-      name: 'Kids Food & Accessories',
-      image: 'https://images.pexels.com/photos/298660/pexels-photo-298660.jpeg?auto=compress&cs=tinysrgb&w=500',
-      description: 'Baby food and child care products',
-      itemCount: '120+ items',
-      subcategories: ['Baby Food', 'Baby Snacks', 'Diapers & Wipes', 'Baby Skin Care', 'Feeding Accessories']
     }
   ];
 
@@ -161,59 +102,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <Mountain className="h-8 w-8 text-green-700" />
-              <div>
-                <h1 className="text-xl font-bold text-green-700">Manali Mart</h1>
-                <p className="text-xs text-gray-500">Mountain Fresh</p>
-              </div>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Home</Link>
-              <Link href="/products" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Products</Link>
-              <Link href="/about" className="text-gray-700 hover:text-green-700 transition-colors font-medium">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Contact</Link>
-            </div>
-
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="relative">
-                <Input 
-                  placeholder="Search products..." 
-                  className="w-64 pr-10"
-                />
-                <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
-              </div>
-            </div>
-
-            <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-green-700">Home</Link>
-              <Link href="/products" className="block px-3 py-2 text-gray-700 hover:text-green-700">Products</Link>
-              <Link href="/about" className="block px-3 py-2 text-gray-700 hover:text-green-700">About</Link>
-              <Link href="/contact" className="block px-3 py-2 text-gray-700 hover:text-green-700">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
       {/* Hero Carousel */}
       <section className="relative h-[500px] overflow-hidden">
@@ -328,7 +217,7 @@ export default function Home() {
                     <div className="flex flex-wrap gap-1">
                       {category.subcategories.slice(0, 3).map((sub, idx) => (
                         <Badge key={idx} variant="secondary" className="text-xs">
-                          {sub}
+                          {sub.name}
                         </Badge>
                       ))}
                       {category.subcategories.length > 3 && (
@@ -422,59 +311,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Mountain className="h-8 w-8 text-green-400" />
-                <div>
-                  <h3 className="text-xl font-bold">Manali Mart</h3>
-                  <p className="text-sm text-gray-400">Mountain Fresh</p>
-                </div>
-              </div>
-              <p className="text-gray-400">
-                Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Categories</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Dairy & Frozen</li>
-                <li>Grocery & Daily Needs</li>
-                <li>Snacks & Drinks</li>
-                <li>Household Essentials</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Mall Road, Old Manali</li>
-                <li>+91 98765 43210</li>
-                <li>info@manalimart.com</li>
-                <li>7 AM - 10 PM</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Manali Mart. All rights reserved. Made with ❤️ in the mountains.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
