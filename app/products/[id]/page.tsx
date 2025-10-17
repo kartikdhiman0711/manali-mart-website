@@ -1,4 +1,6 @@
 // app/products/[id]/page.tsx
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -347,88 +349,5 @@ function ProductNotFound() {
         </div>
       </div>
     </div>
-  );
-}
-
-// Replace with your actual Navbar component
-function Navbar() {
-  return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center space-x-2">
-            <Mountain className="h-8 w-8 text-green-700" />
-            <div>
-              <h1 className="text-xl font-bold text-green-700">Manali Mart</h1>
-              <p className="text-xs text-gray-500">Mountain Fresh</p>
-            </div>
-          </Link>
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-green-700 transition-colors">Home</Link>
-            <Link href="/products" className="text-gray-700 hover:text-green-700 transition-colors">Products</Link>
-            <Link href="/about" className="text-gray-700 hover:text-green-700 transition-colors">About</Link>
-            <Link href="/contact" className="text-gray-700 hover:text-green-700 transition-colors">Contact</Link>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-// Replace with your actual Footer component
-function Footer() {
-  return (
-      <footer className="bg-gray-900 text-white py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Mountain className="h-8 w-8 text-green-400" />
-                <div>
-                  <h3 className="text-xl font-bold">Manali Mart</h3>
-                  <p className="text-sm text-gray-400">Mountain Fresh</p>
-                </div>
-              </div>
-              <p className="text-gray-400">
-                Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Categories</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Dairy & Frozen</li>
-                <li>Grocery & Daily Needs</li>
-                <li>Snacks & Drinks</li>
-                <li>Household Essentials</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Mall Road, Old Manali</li>
-                <li>+91 98765 43210</li>
-                <li>info@manalimart.com</li>
-                <li>7 AM - 10 PM</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Manali Mart. All rights reserved. Made with ❤️ in the mountains.</p>
-          </div>
-        </div>
-      </footer>
   );
 }

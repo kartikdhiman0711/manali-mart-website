@@ -1,115 +1,75 @@
 "use client";
 
 import { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Search, 
-  Menu, 
-  X, 
-  Mountain,
-  Filter,
-  Star,
-  Tag,
-  ChevronDown,
-  ChevronUp
-} from 'lucide-react';
+import { ChevronDown, ChevronRight, Star, Tag, Grid3x3 as Grid3X3, List } from 'lucide-react';
 import Link from 'next/link';
+import { categories } from '@/lib/categories';
 
 export default function Products() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
-
-  const categories = {
-    'Dairy & Frozen': {
-      subcategories: {
-        'Milk & Milk Products': ['Toned Milk', 'Full Cream Milk', 'Flavored Milk', 'Milk Powder'],
-        'Curd & Yogurt': ['Plain Curd', 'Greek Yogurt', 'Flavored Yogurt'],
-        'Butter & Ghee': ['Salted Butter', 'Unsalted Butter', 'White Butter', 'Cow Ghee'],
-        'Cheese': ['Slices', 'Cubes', 'Mozzarella', 'Processed Cheese'],
-        'Paneer & Cream': ['Fresh Paneer', 'Malai', 'Fresh Cream', 'Whipping Cream'],
-        'Lassi & Buttermilk': ['Sweet Lassi', 'Masala Chaas', 'Salted Chaas'],
-        'Frozen Vegetables': ['Green Peas', 'Corn', 'Broccoli', 'Mixed Veg'],
-        'Frozen Snacks': ['French Fries', 'Nuggets', 'Momos', 'Samosas', 'Spring Rolls'],
-        'Ice Cream & Desserts': ['Cones', 'Cups', 'Family Packs', 'Kulfi']
-      }
-    },
-    'Grocery & Daily Needs': {
-      subcategories: {
-        'Atta, Rice & Grains': ['Wheat Flour', 'Basmati Rice', 'Brown Rice', 'Pulses', 'Millets'],
-        'Spices & Masalas': ['Whole Spices', 'Blended Spices', 'Masala Mixes'],
-        'Oils & Ghee': ['Sunflower Oil', 'Mustard Oil', 'Olive Oil', 'Desi Ghee'],
-        'Sugar & Salt': ['White Sugar', 'Brown Sugar', 'Jaggery', 'Rock Salt'],
-        'Dry Fruits & Nuts': ['Almonds', 'Cashews', 'Raisins', 'Walnuts'],
-        'Pickles & Chutneys': ['Mango Pickle', 'Mixed Pickle', 'Tomato Chutney'],
-        'Tea & Coffee': ['Black Tea', 'Green Tea', 'Instant Coffee', 'Filter Coffee'],
-        'Breakfast Cereals': ['Cornflakes', 'Oats', 'Muesli', 'Granola'],
-        'Instant Food': ['Instant Noodles', 'Pasta', 'Soup Mixes'],
-        'Baking & Desserts': ['Maida', 'Baking Powder', 'Cocoa Powder', 'Cake Mix']
-      }
-    },
-    'Snacks & Drinks': {
-      subcategories: {
-        'Chips & Namkeen': ['Potato Chips', 'Banana Chips', 'Mixture', 'Sev'],
-        'Biscuits & Cookies': ['Cream Biscuits', 'Digestive', 'Cookies'],
-        'Chocolates & Candies': ['Dark Chocolate', 'Milk Chocolate', 'Toffees'],
-        'Packaged Juices': ['Mango Juice', 'Orange Juice', 'Mixed Fruit'],
-        'Soft Drinks & Soda': ['Cola', 'Lemon Drinks', 'Flavored Soda'],
-        'Energy & Health Drinks': ['Protein Shakes', 'Malted Drinks', 'Sports Drinks'],
-        'Packaged Water': ['Mineral Water', 'Sparkling Water']
-      }
-    },
-    'Household Essentials': {
-      subcategories: {
-        'Cleaning Supplies': ['Floor Cleaner', 'Toilet Cleaner', 'Dish Wash', 'Glass Cleaner'],
-        'Laundry Care': ['Detergent Powder', 'Liquid Detergent', 'Fabric Conditioner'],
-        'Paper & Tissue Products': ['Kitchen Rolls', 'Toilet Paper', 'Napkins'],
-        'Air Fresheners & Repellents': ['Room Fresheners', 'Mosquito Repellents'],
-        'Storage & Disposables': ['Trash Bags', 'Ziplock Bags', 'Food Wraps']
-      }
-    },
-    'Beauty & Personal Care': {
-      subcategories: {
-        'Skin Care': ['Face Wash', 'Moisturizers', 'Sunscreens', 'Scrubs'],
-        'Hair Care': ['Shampoo', 'Conditioner', 'Hair Oil', 'Hair Color'],
-        'Oral Care': ['Toothpaste', 'Mouthwash', 'Toothbrush'],
-        'Bath & Body': ['Soap', 'Body Wash', 'Talc', 'Deodorants'],
-        'Men\'s Grooming': ['Shaving Cream', 'Razors', 'Beard Oil'],
-        'Women\'s Care': ['Sanitary Pads', 'Intimate Wash', 'Hair Removal']
-      }
-    },
-    'Pet Food & Accessories': {
-      subcategories: {
-        'Dog Food': ['Dry Dog Food', 'Wet Dog Food', 'Dog Treats'],
-        'Cat Food': ['Dry Cat Food', 'Wet Cat Food', 'Cat Treats'],
-        'Pet Accessories': ['Collars', 'Leashes', 'Bowls', 'Beds'],
-        'Pet Care': ['Shampoos', 'Grooming Brushes', 'Tick & Flea Solutions']
-      }
-    },
-    'Kids Food & Accessories': {
-      subcategories: {
-        'Baby Food': ['Cereal Mixes', 'Formula Milk', 'Purees'],
-        'Baby Snacks': ['Teething Biscuits', 'Healthy Snacks'],
-        'Diapers & Wipes': ['Diaper Pants', 'Wet Wipes'],
-        'Baby Skin Care': ['Baby Lotion', 'Baby Soap', 'Baby Shampoo'],
-        'Feeding Accessories': ['Bottles', 'Sippers', 'Bowls', 'Bibs']
-      }
-    }
-  };
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const sampleProducts = [
     {
       id: 'amul-toned-milk',
       name: 'Amul Toned Milk',
       price: '₹28/500ml',
+      originalPrice: '₹32/500ml',
       category: 'Dairy & Frozen',
       subcategory: 'Milk & Milk Products',
       image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.8,
+      reviewCount: 245,
+      description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
+      brand: 'Amul',
+      availability: 'In Stock'
+    },
+    {
+      id: 'amul-toned-milk-1',
+      name: 'Amul Toned Milk',
+      price: '₹28/500ml',
+      originalPrice: '₹32/500ml',
+      category: 'Dairy & Frozen',
+      subcategory: 'Milk & Milk Products',
+      image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.8,
+      reviewCount: 245,
+      description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
+      brand: 'Amul',
+      availability: 'In Stock'
+    },
+    {
+      id: 'amul-toned-milk-2',
+      name: 'Amul Toned Milk',
+      price: '₹28/500ml',
+      originalPrice: '₹32/500ml',
+      category: 'Dairy & Frozen',
+      subcategory: 'Milk & Milk Products',
+      image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.8,
+      reviewCount: 245,
+      description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
+      brand: 'Amul',
+      availability: 'In Stock'
+    },
+    {
+      id: 'amul-toned-milk-3',
+      name: 'Amul Toned Milk',
+      price: '₹28/500ml',
+      originalPrice: '₹32/500ml',
+      category: 'Dairy & Frozen',
+      subcategory: 'Milk & Milk Products',
+      image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.8,
+      reviewCount: 245,
       description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
       brand: 'Amul',
       availability: 'In Stock'
@@ -118,10 +78,54 @@ export default function Products() {
       id: 'basmati-rice-premium',
       name: 'Basmati Rice Premium',
       price: '₹180/kg',
+      originalPrice: '₹200/kg',
       category: 'Grocery & Daily Needs',
       subcategory: 'Atta, Rice & Grains',
       image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.9,
+      reviewCount: 189,
+      description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
+      brand: 'India Gate',
+      availability: 'In Stock'
+    },
+    {
+      id: 'basmati-rice-premium-1',
+      name: 'Basmati Rice Premium',
+      price: '₹180/kg',
+      originalPrice: '₹200/kg',
+      category: 'Grocery & Daily Needs',
+      subcategory: 'Atta, Rice & Grains',
+      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.9,
+      reviewCount: 189,
+      description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
+      brand: 'India Gate',
+      availability: 'In Stock'
+    },
+    {
+      id: 'basmati-rice-premium-2',
+      name: 'Basmati Rice Premium',
+      price: '₹180/kg',
+      originalPrice: '₹200/kg',
+      category: 'Grocery & Daily Needs',
+      subcategory: 'Atta, Rice & Grains',
+      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.9,
+      reviewCount: 189,
+      description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
+      brand: 'India Gate',
+      availability: 'In Stock'
+    },
+    {
+      id: 'basmati-rice-premium-3',
+      name: 'Basmati Rice Premium',
+      price: '₹180/kg',
+      originalPrice: '₹200/kg',
+      category: 'Grocery & Daily Needs',
+      subcategory: 'Atta, Rice & Grains',
+      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.9,
+      reviewCount: 189,
       description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
       brand: 'India Gate',
       availability: 'In Stock'
@@ -130,10 +134,54 @@ export default function Products() {
       id: 'lays-classic-chips',
       name: 'Lays Classic Chips',
       price: '₹20/pack',
+      originalPrice: '₹25/pack',
       category: 'Snacks & Drinks',
       subcategory: 'Chips & Namkeen',
       image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.5,
+      reviewCount: 312,
+      description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
+      brand: 'Lays',
+      availability: 'In Stock'
+    },
+    {
+      id: 'lays-classic-chips-1',
+      name: 'Lays Classic Chips',
+      price: '₹20/pack',
+      originalPrice: '₹25/pack',
+      category: 'Snacks & Drinks',
+      subcategory: 'Chips & Namkeen',
+      image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.5,
+      reviewCount: 312,
+      description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
+      brand: 'Lays',
+      availability: 'In Stock'
+    },
+    {
+      id: 'lays-classic-chips-2',
+      name: 'Lays Classic Chips',
+      price: '₹20/pack',
+      originalPrice: '₹25/pack',
+      category: 'Snacks & Drinks',
+      subcategory: 'Chips & Namkeen',
+      image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.5,
+      reviewCount: 312,
+      description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
+      brand: 'Lays',
+      availability: 'In Stock'
+    },
+    {
+      id: 'lays-classic-chips-3',
+      name: 'Lays Classic Chips',
+      price: '₹20/pack',
+      originalPrice: '₹25/pack',
+      category: 'Snacks & Drinks',
+      subcategory: 'Chips & Namkeen',
+      image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.5,
+      reviewCount: 312,
       description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
       brand: 'Lays',
       availability: 'In Stock'
@@ -142,10 +190,54 @@ export default function Products() {
       id: 'surf-excel-detergent',
       name: 'Surf Excel Detergent',
       price: '₹85/500g',
+      originalPrice: '₹95/500g',
       category: 'Household Essentials',
       subcategory: 'Laundry Care',
       image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.7,
+      reviewCount: 156,
+      description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
+      brand: 'Surf Excel',
+      availability: 'In Stock'
+    },
+    {
+      id: 'surf-excel-detergent-1',
+      name: 'Surf Excel Detergent',
+      price: '₹85/500g',
+      originalPrice: '₹95/500g',
+      category: 'Household Essentials',
+      subcategory: 'Laundry Care',
+      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.7,
+      reviewCount: 156,
+      description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
+      brand: 'Surf Excel',
+      availability: 'In Stock'
+    },
+    {
+      id: 'surf-excel-detergent-2',
+      name: 'Surf Excel Detergent',
+      price: '₹85/500g',
+      originalPrice: '₹95/500g',
+      category: 'Household Essentials',
+      subcategory: 'Laundry Care',
+      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.7,
+      reviewCount: 156,
+      description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
+      brand: 'Surf Excel',
+      availability: 'In Stock'
+    },
+    {
+      id: 'surf-excel-detergent-3',
+      name: 'Surf Excel Detergent',
+      price: '₹85/500g',
+      originalPrice: '₹95/500g',
+      category: 'Household Essentials',
+      subcategory: 'Laundry Care',
+      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
+      rating: 4.7,
+      reviewCount: 156,
       description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
       brand: 'Surf Excel',
       availability: 'In Stock'
@@ -154,10 +246,12 @@ export default function Products() {
       id: 'himalaya-face-wash',
       name: 'Himalaya Face Wash',
       price: '₹65/100ml',
+      originalPrice: '₹75/100ml',
       category: 'Beauty & Personal Care',
       subcategory: 'Skin Care',
       image: 'https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.6,
+      reviewCount: 203,
       description: 'Gentle face wash with neem and turmeric. Suitable for all skin types.',
       brand: 'Himalaya',
       availability: 'In Stock'
@@ -166,10 +260,12 @@ export default function Products() {
       id: 'pedigree-dog-food',
       name: 'Pedigree Dog Food',
       price: '₹320/1.2kg',
+      originalPrice: '₹350/1.2kg',
       category: 'Pet Food & Accessories',
       subcategory: 'Dog Food',
       image: 'https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.4,
+      reviewCount: 89,
       description: 'Complete nutrition for adult dogs. With chicken and vegetables.',
       brand: 'Pedigree',
       availability: 'In Stock'
@@ -178,10 +274,12 @@ export default function Products() {
       id: 'cerelac-baby-food',
       name: 'Cerelac Baby Food',
       price: '₹185/300g',
+      originalPrice: '₹200/300g',
       category: 'Kids Food & Accessories',
       subcategory: 'Baby Food',
       image: 'https://images.pexels.com/photos/298660/pexels-photo-298660.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.8,
+      reviewCount: 167,
       description: 'Nutritious baby cereal with fruits. For babies 6 months and above.',
       brand: 'Nestle',
       availability: 'In Stock'
@@ -190,10 +288,12 @@ export default function Products() {
       id: 'mother-dairy-paneer',
       name: 'Mother Dairy Paneer',
       price: '₹90/200g',
+      originalPrice: '₹100/200g',
       category: 'Dairy & Frozen',
       subcategory: 'Paneer & Cream',
       image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300',
       rating: 4.7,
+      reviewCount: 134,
       description: 'Fresh cottage cheese made from pure milk. Rich in protein.',
       brand: 'Mother Dairy',
       availability: 'In Stock'
@@ -201,211 +301,250 @@ export default function Products() {
   ];
 
   const filteredProducts = sampleProducts.filter(product => {
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+    const matchesCategory = !selectedCategory || product.category === selectedCategory;
+    const matchesSubcategory = !selectedSubcategory || product.subcategory === selectedSubcategory;
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.brand.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSubcategory && matchesSearch;
   });
 
-  const toggleCategoryExpansion = (category: string) => {
-    setExpandedCategories(prev => 
-      prev.includes(category) 
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
-    );
+  const toggleCategoryExpansion = (categoryName: string) => {
+    setExpandedCategories(prev => {
+      if (prev.includes(categoryName)) {
+        // If category is already open, close it
+        return prev.filter(c => c !== categoryName);
+      } else {
+        // Close all other categories and open this one
+        return [categoryName];
+      }
+    });
+  };
+
+  const handleCategorySelect = (categoryName: string) => {
+    setSelectedCategory(categoryName);
+    setSelectedSubcategory(null);
+    if (!expandedCategories.includes(categoryName)) {
+      toggleCategoryExpansion(categoryName);
+    }
+  };
+
+  const handleSubcategorySelect = (subcategoryName: string) => {
+    setSelectedSubcategory(subcategoryName);
+  };
+
+  const clearFilters = () => {
+    setSelectedCategory(null);
+    setSelectedSubcategory(null);
+    setSearchTerm('');
+    setExpandedCategories([]);
+  };
+
+  const getPageTitle = () => {
+    if (selectedSubcategory) return selectedSubcategory;
+    if (selectedCategory) return selectedCategory;
+    return 'All Products';
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <Mountain className="h-8 w-8 text-green-700" />
-              <div>
-                <h1 className="text-xl font-bold text-green-700">Manali Mart</h1>
-                <p className="text-xs text-gray-500">Mountain Fresh</p>
+      <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Left Sidebar - Categories */}
+          <div className="lg:w-80 flex-shrink-0">
+            <div className="bg-white rounded-lg shadow-sm border sticky top-24">
+              <div className="p-4 border-b">
+                <h2 className="text-lg font-semibold text-gray-900">Categories</h2>
               </div>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Home</Link>
-              <Link href="/products" className="text-green-700 font-medium border-b-2 border-green-700">Products</Link>
-              <Link href="/about" className="text-gray-700 hover:text-green-700 transition-colors font-medium">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Contact</Link>
-            </div>
-
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="relative">
-                <Input 
-                  placeholder="Search products..." 
-                  className="w-64 pr-10"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
-              </div>
-            </div>
-
-            <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-green-700">Home</Link>
-              <Link href="/products" className="block px-3 py-2 text-green-700 font-medium">Products</Link>
-              <Link href="/about" className="block px-3 py-2 text-gray-700 hover:text-green-700">About</Link>
-              <Link href="/contact" className="block px-3 py-2 text-gray-700 hover:text-green-700">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar - Categories */}
-          <div className="lg:w-1/4">
-            <Card className="sticky top-24">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Filter className="h-5 w-5" />
-                  <span>Categories</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <Button
-                    variant={selectedCategory === 'All' ? 'default' : 'ghost'}
-                    className="w-full justify-start"
-                    onClick={() => setSelectedCategory('All')}
-                  >
-                    All Products
-                  </Button>
-                  {Object.entries(categories).map(([category, data]) => (
-                    <div key={category}>
-                      <Button
-                        variant={selectedCategory === category ? 'default' : 'ghost'}
-                        className="w-full justify-between"
-                        onClick={() => {
-                          setSelectedCategory(category);
-                          toggleCategoryExpansion(category);
-                        }}
-                      >
-                        <span className="text-left">{category}</span>
-                        {expandedCategories.includes(category) ? 
-                          <ChevronUp className="h-4 w-4" /> : 
-                          <ChevronDown className="h-4 w-4" />
-                        }
-                      </Button>
-                      {expandedCategories.includes(category) && (
-                        <div className="ml-4 mt-2 space-y-1">
-                          {Object.keys(data.subcategories).map((subcategory) => (
-                            <div key={subcategory} className="text-sm text-gray-600 py-1">
-                              {subcategory}
-                            </div>
-                          ))}
-                        </div>
-                      )}
+              
+              {/* All Products Button */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={clearFilters}
+                  className={`w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors ${
+                    !selectedCategory && !selectedSubcategory ? 'bg-green-50 text-green-700 font-medium' : 'text-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded bg-green-100 flex items-center justify-center">
+                      <span className="text-green-600 font-bold text-sm">All</span>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <div className="text-left">
+                      <div className="font-medium text-sm">All Products</div>
+                      <div className="text-xs text-gray-500">View everything</div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+              
+              <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
+                {categories.map((category) => (
+                  <div key={category.name} className="border-b border-gray-100 last:border-b-0">
+                    <button
+                      onClick={() => handleCategorySelect(category.name)}
+                      className={`w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors ${
+                        selectedCategory === category.name ? 'bg-green-50 text-green-700' : 'text-gray-700'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <img 
+                          src={category.image} 
+                          alt={category.name}
+                          className="w-8 h-8 rounded object-cover"
+                        />
+                        <div className="text-left">
+                          <div className="font-medium text-sm">{category.name}</div>
+                          <div className="text-xs text-gray-500">{category.itemCount}</div>
+                        </div>
+                      </div>
+                      {expandedCategories.includes(category.name) ? 
+                        <ChevronDown className="h-4 w-4" /> : 
+                        <ChevronRight className="h-4 w-4" />
+                      }
+                    </button>
+                    
+                    {expandedCategories.includes(category.name) && (
+                      <div className="bg-gray-50">
+                        {category.subcategories.map((subcategory) => (
+                          <button
+                            key={subcategory.name}
+                            onClick={() => handleSubcategorySelect(subcategory.name)}
+                            className={`w-full px-8 py-2 text-left text-sm hover:bg-gray-100 transition-colors ${
+                              selectedSubcategory === subcategory.name ? 'bg-green-100 text-green-700 font-medium' : 'text-gray-600'
+                            }`}
+                          >
+                            {subcategory.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Main Content */}
-          <div className="lg:w-3/4">
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {selectedCategory === 'All' ? 'All Products' : selectedCategory}
-              </h1>
-              <p className="text-gray-600">
-                {filteredProducts.length} products found
-              </p>
-            </div>
-
-            {/* Mobile Search */}
-            <div className="md:hidden mb-6">
-              <div className="relative">
-                <Input 
-                  placeholder="Search products..." 
-                  className="w-full pr-10"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+          <div className="flex-1">
+            {/* Header */}
+            <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">{getPageTitle()}</h1>
+                  <p className="text-gray-600 mt-1">
+                    {filteredProducts.length} products found
+                    {selectedCategory && ` in ${selectedCategory}`}
+                    {selectedSubcategory && ` > ${selectedSubcategory}`}
+                  </p>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant={viewMode === 'grid' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setViewMode('grid')}
+                  >
+                    <Grid3X3 className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={viewMode === 'list' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setViewMode('list')}
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product, index) => (
-                <Card key={index} className="group hover:shadow-xl transition-all duration-300">
-                  <div className="relative">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                    <Badge className="absolute top-2 right-2 bg-green-600">
-                      {product.availability}
-                    </Badge>
-                    <Badge className="absolute top-2 left-2 bg-blue-600">
-                      {product.brand}
-                    </Badge>
-                  </div>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{product.name}</CardTitle>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm text-gray-600">{product.rating}</span>
-                      </div>
-                      <Badge variant="secondary" className="text-xs">
-                        {product.subcategory}
+            {filteredProducts.length > 0 ? (
+              <div className={`grid gap-6 ${
+                viewMode === 'grid' 
+                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
+                  : 'grid-cols-1'
+              }`}>
+                {filteredProducts.map((product) => (
+                  <Card key={product.id} className={`group hover:shadow-lg transition-all duration-300 ${
+                    viewMode === 'list' ? 'flex flex-row' : ''
+                  }`}>
+                    <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className={`object-cover ${
+                          viewMode === 'list' 
+                            ? 'w-full h-full rounded-l-lg' 
+                            : 'w-full h-48 rounded-t-lg'
+                        }`}
+                      />
+                      <Badge className="absolute top-2 right-2 bg-green-600 text-xs">
+                        {product.availability}
                       </Badge>
+                      {product.originalPrice && (
+                        <Badge className="absolute top-2 left-2 bg-red-600 text-xs">
+                          SALE
+                        </Badge>
+                      )}
                     </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-sm text-gray-600 mb-3">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-green-700">{product.price}</span>
-                      <Tag className="h-5 w-5 text-gray-400" />
+                    
+                    <div className={`${viewMode === 'list' ? 'flex-1' : ''}`}>
+                      <CardHeader className="pb-2">
+                        <div className="flex items-center justify-between mb-2">
+                          <Badge variant="secondary" className="text-xs">
+                            {product.brand}
+                          </Badge>
+                          <div className="flex items-center space-x-1">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <span className="text-xs text-gray-600">{product.rating}</span>
+                          </div>
+                        </div>
+                        <CardTitle className="text-lg leading-tight">{product.name}</CardTitle>
+                        <CardDescription className="text-xs text-gray-500">
+                          {product.subcategory}
+                        </CardDescription>
+                      </CardHeader>
+                      
+                      <CardContent className="pt-0">
+                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                          {product.description}
+                        </p>
+                        
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-lg font-bold text-green-700">{product.price}</span>
+                            {product.originalPrice && (
+                              <span className="text-sm text-gray-500 line-through">
+                                {product.originalPrice}
+                              </span>
+                            )}
+                          </div>
+                          <Tag className="h-4 w-4 text-gray-400" />
+                        </div>
+                        
+                        <Link href={`/products/${product.id}`}>
+                          <Button className="w-full bg-green-700 hover:bg-green-800 text-sm">
+                            View Details
+                          </Button>
+                        </Link>
+                      </CardContent>
                     </div>
-                    <Link href={`/products/${product.id}`}>
-                      <Button className="w-full mt-3 text-white bg-green-700 hover:bg-green-800">
-                        View Details
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {filteredProducts.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
-                <Button 
-                  className="mt-4" 
-                  onClick={() => {
-                    setSelectedCategory('All');
-                    setSearchTerm('');
-                  }}
-                >
-                  Clear Filters
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
+                <div className="text-gray-400 mb-4">
+                  <Tag className="h-16 w-16 mx-auto" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
+                <p className="text-gray-600 mb-6">
+                  No products match your current filters. Try adjusting your search or category selection.
+                </p>
+                <Button onClick={clearFilters} className="bg-green-700 hover:bg-green-800">
+                  Clear All Filters
                 </Button>
               </div>
             )}
@@ -413,59 +552,7 @@ export default function Products() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Mountain className="h-8 w-8 text-green-400" />
-                <div>
-                  <h3 className="text-xl font-bold">Manali Mart</h3>
-                  <p className="text-sm text-gray-400">Mountain Fresh</p>
-                </div>
-              </div>
-              <p className="text-gray-400">
-                Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Categories</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Dairy & Frozen</li>
-                <li>Grocery & Daily Needs</li>
-                <li>Snacks & Drinks</li>
-                <li>Household Essentials</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Mall Road, Old Manali</li>
-                <li>+91 98765 43210</li>
-                <li>info@manalimart.com</li>
-                <li>7 AM - 10 PM</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Manali Mart. All rights reserved. Made with ❤️ in the mountains.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

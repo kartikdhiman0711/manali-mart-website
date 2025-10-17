@@ -1,25 +1,14 @@
 "use client";
 
 import { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
-  Menu, 
-  X, 
-  Mountain,
-  Users,
-  Award,
-  Heart,
-  Clock,
-  MapPin,
-  Truck,
-  Shield
-} from 'lucide-react';
+import { Users, Award, Heart, Mountain, Clock, MapPin, Truck, Shield } from 'lucide-react';
 import Link from 'next/link';
 
 export default function About() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const stats = [
     {
       icon: <Clock className="h-8 w-8 text-green-600" />,
@@ -72,10 +61,10 @@ export default function About() {
 
   const team = [
     {
-      name: "Rajesh Sharma",
+      name: "Varun Mahajan",
       role: "Store Owner & Manager",
       image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300",
-      description: "With over 15 years of retail experience, Rajesh founded Manali Mart with a vision to serve the community."
+      description: "With over 15 years of retail experience, Varun founded Manali Mart with a vision to serve the community."
     },
     {
       name: "Priya Thakur",
@@ -93,49 +82,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <Mountain className="h-8 w-8 text-green-700" />
-              <div>
-                <h1 className="text-xl font-bold text-green-700">Manali Mart</h1>
-                <p className="text-xs text-gray-500">Mountain Fresh</p>
-              </div>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Home</Link>
-              <Link href="/products" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Products</Link>
-              <Link href="/about" className="text-green-700 font-medium border-b-2 border-green-700">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Contact</Link>
-            </div>
-
-            <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-green-700">Home</Link>
-              <Link href="/products" className="block px-3 py-2 text-gray-700 hover:text-green-700">Products</Link>
-              <Link href="/about" className="block px-3 py-2 text-green-700 font-medium">About</Link>
-              <Link href="/contact" className="block px-3 py-2 text-gray-700 hover:text-green-700">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-700 via-green-600 to-green-800 text-white py-20">
@@ -218,7 +165,7 @@ export default function About() {
                   <MapPin className="h-6 w-6 text-green-600" />
                   <div>
                     <p className="font-semibold">Located in</p>
-                    <p className="text-sm text-gray-600">Mall Road, Old Manali</p>
+                    <p className="text-sm text-gray-600">18 Mile, Manali, H.P.</p>
                   </div>
                 </div>
               </div>
@@ -307,8 +254,8 @@ export default function About() {
                 Browse Products
               </Button>
             </Link>
-            <Link href="/contact">
-              <Button variant="outline" size="lg" className="border-white text-black hover:bg-white hover:text-green-700 px-8 py-3">
+            <Link href="https://www.google.com/maps/dir//Manali+Mart,+Mall+Road,+Old+Manali,+Himachal+Pradesh,+175131" target='_blank'>
+              <Button variant="outline" size="lg" className="border-white text-orange-500 hover:bg-white hover:text-black px-8 py-3">
                 Get Directions
               </Button>
             </Link>
@@ -316,59 +263,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Mountain className="h-8 w-8 text-green-400" />
-                <div>
-                  <h3 className="text-xl font-bold">Manali Mart</h3>
-                  <p className="text-sm text-gray-400">Mountain Fresh</p>
-                </div>
-              </div>
-              <p className="text-gray-400">
-                Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Categories</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Dairy & Frozen</li>
-                <li>Grocery & Daily Needs</li>
-                <li>Snacks & Drinks</li>
-                <li>Household Essentials</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Mall Road, Old Manali</li>
-                <li>+91 98765 43210</li>
-                <li>info@manalimart.com</li>
-                <li>7 AM - 10 PM</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Manali Mart. All rights reserved. Made with ❤️ in the mountains.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
