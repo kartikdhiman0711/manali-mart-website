@@ -1,5 +1,5 @@
 "use client";
-
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,8 +17,10 @@ import {
   Star
 } from 'lucide-react';
 import Link from 'next/link';
+import ProductsGrid from '@/components/ui/productGrid';
+import ProductCard from '@/components/ui/productCard';
 
-export default function Home() {
+export default function Home() { 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -214,6 +216,13 @@ export default function Home() {
           </div>
         )}
       </nav>
+
+
+
+        {/*trying cards*/}
+
+      <ProductsGrid />
+        <h1>Kind</h1>
 
       {/* Hero Carousel */}
       <section className="relative h-[500px] overflow-hidden">
