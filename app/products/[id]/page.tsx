@@ -34,6 +34,10 @@ interface PageParams {
   id: string;
 }
 
+interface PageProps {
+  params: Promise<PageParams>;
+}
+
 // -------------------- Sample Product Data --------------------
 const allProducts: Product[] = [
   {
@@ -80,11 +84,9 @@ export async function generateStaticParams() {
 }
 
 // -------------------- Page Component --------------------
-export default async function SingleProductPage({
-  params: { id },
-}: {
-  params: PageParams;
-}) {
+export default async function SingleProductPage({ params }: PageProps) {
+  const { id } = await params;
+  
   const product = allProducts.find(p => p.id === id) || null;
   const similarProducts = product
     ? allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3)
