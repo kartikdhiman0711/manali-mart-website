@@ -73,12 +73,12 @@ export async function generateStaticParams() {
   }));
 }
 
-interface PageProps {
+export default async function SingleProductPage({
+  params: { id },
+}: {
   params: { id: string };
-}
-
-export default async function SingleProductPage({ params }: PageProps) {
-  const product = allProducts.find(p => p.id === params.id) || null;
+}) {
+  const product = allProducts.find(p => p.id === id) || null;
   const similarProducts = product
     ? allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3)
     : [];
