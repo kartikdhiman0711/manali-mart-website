@@ -6,7 +6,8 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ChevronDown, ChevronRight, Star, Tag, Grid3x3 as Grid3X3, List } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ChevronDown, ChevronRight, Star, Tag, Grid3x3 as Grid3X3, List, Search } from 'lucide-react';
 import Link from 'next/link';
 import { categories } from '@/lib/categories';
 
@@ -20,48 +21,6 @@ export default function Products() {
   const sampleProducts = [
     {
       id: 'amul-toned-milk',
-      name: 'Amul Toned Milk',
-      price: '₹28/500ml',
-      originalPrice: '₹32/500ml',
-      category: 'Dairy & Frozen',
-      subcategory: 'Milk & Milk Products',
-      image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.8,
-      reviewCount: 245,
-      description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
-      brand: 'Amul',
-      availability: 'In Stock'
-    },
-    {
-      id: 'amul-toned-milk-1',
-      name: 'Amul Toned Milk',
-      price: '₹28/500ml',
-      originalPrice: '₹32/500ml',
-      category: 'Dairy & Frozen',
-      subcategory: 'Milk & Milk Products',
-      image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.8,
-      reviewCount: 245,
-      description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
-      brand: 'Amul',
-      availability: 'In Stock'
-    },
-    {
-      id: 'amul-toned-milk-2',
-      name: 'Amul Toned Milk',
-      price: '₹28/500ml',
-      originalPrice: '₹32/500ml',
-      category: 'Dairy & Frozen',
-      subcategory: 'Milk & Milk Products',
-      image: 'https://images.pexels.com/photos/416832/pexels-photo-416832.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.8,
-      reviewCount: 245,
-      description: 'Fresh toned milk with 3% fat content. Rich in calcium and protein.',
-      brand: 'Amul',
-      availability: 'In Stock'
-    },
-    {
-      id: 'amul-toned-milk-3',
       name: 'Amul Toned Milk',
       price: '₹28/500ml',
       originalPrice: '₹32/500ml',
@@ -89,48 +48,6 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
-      id: 'basmati-rice-premium-1',
-      name: 'Basmati Rice Premium',
-      price: '₹180/kg',
-      originalPrice: '₹200/kg',
-      category: 'Grocery & Daily Needs',
-      subcategory: 'Atta, Rice & Grains',
-      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.9,
-      reviewCount: 189,
-      description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
-      brand: 'India Gate',
-      availability: 'In Stock'
-    },
-    {
-      id: 'basmati-rice-premium-2',
-      name: 'Basmati Rice Premium',
-      price: '₹180/kg',
-      originalPrice: '₹200/kg',
-      category: 'Grocery & Daily Needs',
-      subcategory: 'Atta, Rice & Grains',
-      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.9,
-      reviewCount: 189,
-      description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
-      brand: 'India Gate',
-      availability: 'In Stock'
-    },
-    {
-      id: 'basmati-rice-premium-3',
-      name: 'Basmati Rice Premium',
-      price: '₹180/kg',
-      originalPrice: '₹200/kg',
-      category: 'Grocery & Daily Needs',
-      subcategory: 'Atta, Rice & Grains',
-      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.9,
-      reviewCount: 189,
-      description: 'Long grain aromatic basmati rice. Perfect for biryanis and pulao.',
-      brand: 'India Gate',
-      availability: 'In Stock'
-    },
-    {
       id: 'lays-classic-chips',
       name: 'Lays Classic Chips',
       price: '₹20/pack',
@@ -145,91 +62,7 @@ export default function Products() {
       availability: 'In Stock'
     },
     {
-      id: 'lays-classic-chips-1',
-      name: 'Lays Classic Chips',
-      price: '₹20/pack',
-      originalPrice: '₹25/pack',
-      category: 'Snacks & Drinks',
-      subcategory: 'Chips & Namkeen',
-      image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.5,
-      reviewCount: 312,
-      description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
-      brand: 'Lays',
-      availability: 'In Stock'
-    },
-    {
-      id: 'lays-classic-chips-2',
-      name: 'Lays Classic Chips',
-      price: '₹20/pack',
-      originalPrice: '₹25/pack',
-      category: 'Snacks & Drinks',
-      subcategory: 'Chips & Namkeen',
-      image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.5,
-      reviewCount: 312,
-      description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
-      brand: 'Lays',
-      availability: 'In Stock'
-    },
-    {
-      id: 'lays-classic-chips-3',
-      name: 'Lays Classic Chips',
-      price: '₹20/pack',
-      originalPrice: '₹25/pack',
-      category: 'Snacks & Drinks',
-      subcategory: 'Chips & Namkeen',
-      image: 'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.5,
-      reviewCount: 312,
-      description: 'Crispy potato chips with classic salted taste. Perfect snack for any time.',
-      brand: 'Lays',
-      availability: 'In Stock'
-    },
-    {
       id: 'surf-excel-detergent',
-      name: 'Surf Excel Detergent',
-      price: '₹85/500g',
-      originalPrice: '₹95/500g',
-      category: 'Household Essentials',
-      subcategory: 'Laundry Care',
-      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.7,
-      reviewCount: 156,
-      description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
-      brand: 'Surf Excel',
-      availability: 'In Stock'
-    },
-    {
-      id: 'surf-excel-detergent-1',
-      name: 'Surf Excel Detergent',
-      price: '₹85/500g',
-      originalPrice: '₹95/500g',
-      category: 'Household Essentials',
-      subcategory: 'Laundry Care',
-      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.7,
-      reviewCount: 156,
-      description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
-      brand: 'Surf Excel',
-      availability: 'In Stock'
-    },
-    {
-      id: 'surf-excel-detergent-2',
-      name: 'Surf Excel Detergent',
-      price: '₹85/500g',
-      originalPrice: '₹95/500g',
-      category: 'Household Essentials',
-      subcategory: 'Laundry Care',
-      image: 'https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=300',
-      rating: 4.7,
-      reviewCount: 156,
-      description: 'Powerful stain removal detergent powder. Removes tough stains easily.',
-      brand: 'Surf Excel',
-      availability: 'In Stock'
-    },
-    {
-      id: 'surf-excel-detergent-3',
       name: 'Surf Excel Detergent',
       price: '₹85/500g',
       originalPrice: '₹95/500g',
@@ -322,6 +155,8 @@ export default function Products() {
   };
 
   const handleCategorySelect = (categoryName: string) => {
+    // Prevent page scroll when selecting category
+    event?.preventDefault();
     setSelectedCategory(categoryName);
     setSelectedSubcategory(null);
     if (!expandedCategories.includes(categoryName)) {
@@ -330,6 +165,8 @@ export default function Products() {
   };
 
   const handleSubcategorySelect = (subcategoryName: string) => {
+    // Prevent page scroll when selecting subcategory
+    event?.preventDefault();
     setSelectedSubcategory(subcategoryName);
   };
 
@@ -350,13 +187,13 @@ export default function Products() {
     <div className="min-h-screen bg-gray-50">
       <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-col lg:flex-row gap-6">
+      <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8 py-2">
+        <div className="flex flex-row gap-1 sm:gap-4 lg:gap-6">
           {/* Left Sidebar - Categories */}
-          <div className="lg:w-80 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow-sm border sticky top-24">
-              <div className="p-4 border-b">
-                <h2 className="text-lg font-semibold text-gray-900">Categories</h2>
+          <div className="w-20 sm:w-32 lg:w-80 flex-shrink-0">
+            <div className="bg-white rounded-lg shadow-sm border sticky top-2 h-fit">
+              <div className="p-2 py-6 border-b">
+                <h2 className="text-xs sm:text-sm lg:text-lg font-semibold text-gray-900">Categories</h2>
               </div>
               
               {/* All Products Button */}
@@ -367,42 +204,44 @@ export default function Products() {
                     !selectedCategory && !selectedSubcategory ? 'bg-green-50 text-green-700 font-medium' : 'text-gray-700'
                   }`}
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded bg-green-100 flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-sm">All</span>
+                  <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-3">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <span className="text-green-600 font-bold text-xs sm:text-sm">All</span>
                     </div>
                     <div className="text-left">
-                      <div className="font-medium text-sm">All Products</div>
-                      <div className="text-xs text-gray-500">View everything</div>
+                      <div className="font-medium text-xs sm:text-sm text-center sm:text-left">All Products</div>
+                      <div className="text-xs text-gray-500 hidden lg:block">View everything</div>
                     </div>
                   </div>
                 </button>
               </div>
               
-              <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
+              <div className="max-h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden">
                 {categories.map((category) => (
                   <div key={category.name} className="border-b border-gray-100 last:border-b-0">
                     <button
                       onClick={() => handleCategorySelect(category.name)}
-                      className={`w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors ${
+                      className={`w-full px-3 sm:px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors ${
                         selectedCategory === category.name ? 'bg-green-50 text-green-700' : 'text-gray-700'
                       }`}
                     >
-                      <div className="flex items-center space-x-3">
+                      <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-3 flex-1 min-w-0">
                         <img 
                           src={category.image} 
                           alt={category.name}
-                          className="w-8 h-8 rounded object-cover"
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded object-cover flex-shrink-0"
                         />
-                        <div className="text-left">
-                          <div className="font-medium text-sm">{category.name}</div>
-                          <div className="text-xs text-gray-500">{category.itemCount}</div>
+                        <div className="text-center sm:text-left flex-1 min-w-0">
+                          <div className="font-medium text-xs sm:text-sm text-gray-900 leading-tight break-words">{category.name}</div>
+                          <div className="text-xs text-gray-500 hidden lg:block">{category.itemCount}</div>
                         </div>
                       </div>
-                      {expandedCategories.includes(category.name) ? 
-                        <ChevronDown className="h-4 w-4" /> : 
-                        <ChevronRight className="h-4 w-4" />
-                      }
+                      <div className="hidden sm:block">
+                        {expandedCategories.includes(category.name) ? 
+                          <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" /> : 
+                          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                        }
+                      </div>
                     </button>
                     
                     {expandedCategories.includes(category.name) && (
@@ -411,11 +250,11 @@ export default function Products() {
                           <button
                             key={subcategory.name}
                             onClick={() => handleSubcategorySelect(subcategory.name)}
-                            className={`w-full px-8 py-2 text-left text-sm hover:bg-gray-100 transition-colors ${
+                            className={`w-full px-2 sm:px-8 py-2 text-left text-xs sm:text-sm hover:bg-gray-100 transition-colors ${
                               selectedSubcategory === subcategory.name ? 'bg-green-100 text-green-700 font-medium' : 'text-gray-600'
                             }`}
                           >
-                            {subcategory.name}
+                            <span className="block text-gray-900 break-words leading-tight">{subcategory.name}</span>
                           </button>
                         ))}
                       </div>
@@ -429,11 +268,24 @@ export default function Products() {
           {/* Main Content */}
           <div className="flex-1">
             {/* Header */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 mb-1">
+              {/* Mobile Search Bar */}
+              <div className="block sm:hidden mb-4">
+                <div className="relative">
+                  <Input 
+                    placeholder="Search products..." 
+                    className="w-full pr-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">{getPageTitle()}</h1>
-                  <p className="text-gray-600 mt-1">
+                  <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{getPageTitle()}</h1>
+                  <p className="text-sm sm:text-base text-gray-600 mt-1">
                     {filteredProducts.length} products found
                     {selectedCategory && ` in ${selectedCategory}`}
                     {selectedSubcategory && ` > ${selectedSubcategory}`}
@@ -461,71 +313,87 @@ export default function Products() {
 
             {/* Products Grid */}
             {filteredProducts.length > 0 ? (
-              <div className={`grid gap-6 ${
+              <div className={`grid gap-1 sm:gap-4 ${
                 viewMode === 'grid' 
-                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
+                  ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
                   : 'grid-cols-1'
               }`}>
                 {filteredProducts.map((product) => (
-                  <Card key={product.id} className={`group hover:shadow-lg transition-all duration-300 ${
-                    viewMode === 'list' ? 'flex flex-row' : ''
+                  <Card key={product.id} className={`group hover:shadow-lg transition-all duration-300 overflow-hidden ${
+                    viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''
                   }`}>
-                    <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
+                    <div className={`relative ${
+                      viewMode === 'list' 
+                        ? 'w-full h-24 sm:w-24 sm:h-24 lg:w-32 lg:h-full flex-shrink-0' 
+                        : ''
+                    }`}>
                       <img 
                         src={product.image} 
                         alt={product.name}
                         className={`object-cover ${
                           viewMode === 'list' 
-                            ? 'w-full h-full rounded-l-lg' 
-                            : 'w-full h-48 rounded-t-lg'
+                            ? 'w-full h-full rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none' 
+                            : 'w-full h-24 sm:h-32 lg:h-40 rounded-t-lg'
                         }`}
                       />
-                      <Badge className="absolute top-2 right-2 bg-green-600 text-xs">
+                      <Badge className="absolute top-1 right-1 bg-green-600 text-xs px-1 py-0.5">
                         {product.availability}
                       </Badge>
                       {product.originalPrice && (
-                        <Badge className="absolute top-2 left-2 bg-red-600 text-xs">
+                        <Badge className="absolute top-1 left-1 bg-red-600 text-xs px-1 py-0.5">
                           SALE
                         </Badge>
                       )}
                     </div>
                     
                     <div className={`${viewMode === 'list' ? 'flex-1' : ''}`}>
-                      <CardHeader className="pb-2">
-                        <div className="flex items-center justify-between mb-2">
-                          <Badge variant="secondary" className="text-xs">
+                      <CardHeader className={`${viewMode === 'list' ? 'pb-1 px-1 pt-2' : 'pb-1 px-1 pt-2'}`}>
+                        <div className="flex items-center justify-between mb-1 sm:mb-2">
+                          <Badge variant="secondary" className="text-xs px-1 py-0.5">
                             {product.brand}
                           </Badge>
                           <div className="flex items-center space-x-1">
-                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
                             <span className="text-xs text-gray-600">{product.rating}</span>
                           </div>
                         </div>
-                        <CardTitle className="text-lg leading-tight">{product.name}</CardTitle>
-                        <CardDescription className="text-xs text-gray-500">
+                        <CardTitle className={`leading-tight ${
+                          viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
+                        }`}>
+                          {product.name}
+                        </CardTitle>
+                        <CardDescription className="text-xs text-gray-500 truncate">
                           {product.subcategory}
                         </CardDescription>
                       </CardHeader>
                       
-                      <CardContent className="pt-0">
-                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <CardContent className={`${viewMode === 'list' ? 'pt-0 px-1 pb-2' : 'pt-0 px-1 pb-2'}`}>
+                        <p className={`text-gray-600 mb-2 line-clamp-2 ${
+                          viewMode === 'list' ? 'text-xs' : 'text-xs'
+                        }`}>
                           {product.description}
                         </p>
                         
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-2">
-                            <span className="text-lg font-bold text-green-700">{product.price}</span>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex flex-col sm:flex-row items-center sm:space-x-2">
+                            <span className={`font-bold text-green-700 ${
+                              viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
+                            }`}>
+                              {product.price}
+                            </span>
                             {product.originalPrice && (
-                              <span className="text-sm text-gray-500 line-through">
+                              <span className={`text-gray-500 line-through ${
+                                viewMode === 'list' ? 'text-xs' : 'text-xs'
+                              }`}>
                                 {product.originalPrice}
                               </span>
                             )}
                           </div>
-                          <Tag className="h-4 w-4 text-gray-400" />
+                          <Tag className="h-3 w-3 text-gray-400" />
                         </div>
                         
                         <Link href={`/products/${product.id}`}>
-                          <Button className="w-full bg-green-700 hover:bg-green-800 text-sm">
+                          <Button className="w-full bg-green-700 hover:bg-green-800 text-xs py-1.5">
                             View Details
                           </Button>
                         </Link>
@@ -535,7 +403,7 @@ export default function Products() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
+              <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
                 <div className="text-gray-400 mb-4">
                   <Tag className="h-16 w-16 mx-auto" />
                 </div>
