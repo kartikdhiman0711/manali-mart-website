@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Star, Package, Info, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Tag } from 'lucide-react';
 import Link from 'next/link';
 
+// -------------------- Types --------------------
 interface Product {
   id: string;
   name: string;
@@ -29,8 +30,12 @@ interface Product {
   relatedProducts: string[];
 }
 
+interface PageParams {
+  id: string;
+}
+
+// -------------------- Sample Product Data --------------------
 const allProducts: Product[] = [
-  // Include your products here, same as in your code
   {
     id: 'amul-toned-milk',
     name: 'Amul Toned Milk',
@@ -67,16 +72,18 @@ const allProducts: Product[] = [
   // Add all other products from your previous code
 ];
 
+// -------------------- Static Params --------------------
 export async function generateStaticParams() {
-  return allProducts.map((product) => ({
+  return allProducts.map(product => ({
     id: product.id
   }));
 }
 
+// -------------------- Page Component --------------------
 export default async function SingleProductPage({
   params: { id },
 }: {
-  params: { id: string };
+  params: PageParams;
 }) {
   const product = allProducts.find(p => p.id === id) || null;
   const similarProducts = product
@@ -125,18 +132,14 @@ export default async function SingleProductPage({
                 alt={product.name}
                 className="w-full h-96 object-cover rounded-lg shadow-lg"
               />
-              <Badge className="absolute top-4 right-4 bg-green-600">
-                {product.availability}
-              </Badge>
+              <Badge className="absolute top-4 right-4 bg-green-600">{product.availability}</Badge>
               {product.originalPrice && (
-                <Badge className="absolute top-4 left-4 bg-red-600">
-                  SALE
-                </Badge>
+                <Badge className="absolute top-4 left-4 bg-red-600">SALE</Badge>
               )}
             </div>
           </div>
 
-          {/* Product Information */}
+          {/* Product Info */}
           <div className="space-y-6">
             <div>
               <div className="flex items-center space-x-2 mb-2">
@@ -165,7 +168,7 @@ export default async function SingleProductPage({
               <p className="text-gray-600 leading-relaxed">{product.detailedDescription}</p>
             </div>
 
-            {/* Product Features */}
+            {/* Key Features */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Key Features</h3>
               <ul className="space-y-2">
@@ -178,7 +181,7 @@ export default async function SingleProductPage({
               </ul>
             </div>
 
-            {/* Product Info Cards */}
+            {/* Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader className="pb-2">
@@ -217,9 +220,7 @@ export default async function SingleProductPage({
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     <span className="text-green-700 font-medium">{product.availability}</span>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    Visit our store to purchase this product
-                  </p>
+                  <p className="text-sm text-gray-600">Visit our store to purchase this product</p>
                 </CardContent>
               </Card>
             </div>
@@ -228,7 +229,7 @@ export default async function SingleProductPage({
 
         {/* Additional Information */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Nutritional Information */}
+          {/* Nutritional Info */}
           {Object.keys(product.nutritionalInfo).length > 0 && (
             <Card>
               <CardHeader>
@@ -248,7 +249,7 @@ export default async function SingleProductPage({
             </Card>
           )}
 
-          {/* Storage Instructions */}
+          {/* Storage & Ingredients */}
           <Card>
             <CardHeader>
               <CardTitle>Storage & Usage</CardTitle>
@@ -274,43 +275,35 @@ export default async function SingleProductPage({
           <div className="mt-16">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Similar Products</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {similarProducts.map((similarProduct) => (
-                <Card key={similarProduct.id} className="group hover:shadow-xl transition-all duration-300">
+              {similarProducts.map(similar => (
+                <Card key={similar.id} className="group hover:shadow-xl transition-all duration-300">
                   <div className="relative">
                     <img 
-                      src={similarProduct.image} 
-                      alt={similarProduct.name}
+                      src={similar.image} 
+                      alt={similar.name}
                       className="w-full h-48 object-cover rounded-t-lg"
                     />
-                    <Badge className="absolute top-2 right-2 bg-green-600">
-                      {similarProduct.availability}
-                    </Badge>
-                    <Badge className="absolute top-2 left-2 bg-blue-600">
-                      {similarProduct.brand}
-                    </Badge>
+                    <Badge className="absolute top-2 right-2 bg-green-600">{similar.availability}</Badge>
+                    <Badge className="absolute top-2 left-2 bg-blue-600">{similar.brand}</Badge>
                   </div>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{similarProduct.name}</CardTitle>
+                    <CardTitle className="text-lg">{similar.name}</CardTitle>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm text-gray-600">{similarProduct.rating}</span>
+                        <span className="text-sm text-gray-600">{similar.rating}</span>
                       </div>
-                      <Badge variant="secondary" className="text-xs">
-                        {similarProduct.subcategory}
-                      </Badge>
+                      <Badge variant="secondary" className="text-xs">{similar.subcategory}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="text-sm text-gray-600 mb-3">{similarProduct.description}</p>
+                    <p className="text-sm text-gray-600 mb-3">{similar.description}</p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xl font-bold text-green-700">{similarProduct.price}</span>
+                      <span className="text-xl font-bold text-green-700">{similar.price}</span>
                       <Tag className="h-5 w-5 text-gray-400" />
                     </div>
-                    <Link href={`/products/${similarProduct.id}`}>
-                      <Button className="w-full bg-green-700 hover:bg-green-800">
-                        View Details
-                      </Button>
+                    <Link href={`/products/${similar.id}`}>
+                      <Button className="w-full bg-green-700 hover:bg-green-800">View Details</Button>
                     </Link>
                   </CardContent>
                 </Card>
@@ -325,17 +318,14 @@ export default async function SingleProductPage({
   );
 }
 
-// -------------------- Helper Components --------------------
-
+// -------------------- Helper Component --------------------
 function ProductNotFound() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center">
         <AlertCircle className="h-24 w-24 text-gray-400 mx-auto mb-6" />
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Sorry, the product you're looking for doesn't exist or may have been removed.
-        </p>
+        <p className="text-xl text-gray-600 mb-8">Sorry, the product you're looking for doesn't exist or may have been removed.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/products">
             <Button className="bg-green-700 hover:bg-green-800">
