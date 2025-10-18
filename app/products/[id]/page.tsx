@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Mountain, ArrowLeft, Star, Package, Info, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Tag } from 'lucide-react';
+import { ArrowLeft, Star, Package, Info, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Tag } from 'lucide-react';
 import Link from 'next/link';
 
 interface Product {
@@ -77,7 +77,7 @@ interface PageProps {
   params: { id: string };
 }
 
-export default function SingleProductPage({ params }: PageProps) {
+export default async function SingleProductPage({ params }: PageProps) {
   const product = allProducts.find(p => p.id === params.id) || null;
   const similarProducts = product
     ? allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3)
