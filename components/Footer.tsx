@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Image src="/logo-footer.png" alt="Website Logo" width={120} height={60} className="w-auto h-12 md:h-20" />
+              <Image src="/logo-footer.png" alt="Website Logo" width={120} height={60} className="w-auto h-16 md:h-20" />
             </div>
             <p className="text-gray-400">
               Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.
