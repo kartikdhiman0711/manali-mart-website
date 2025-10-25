@@ -28,22 +28,22 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Categories</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="/products">Dairy & Frozen</Link></li>
-              <li><Link href="/products">Grocery & Daily Needs</Link></li>
-              <li><Link href="/products">Snacks & Drinks</Link></li>
-              <li><Link href="/products">Household Essentials</Link></li>
-              <li><Link href="/products">Beauty & Personal Care</Link></li>
-              <li><Link href="/products">Pet Food & Accessories</Link></li>
-              <li><Link href="/products">Kids Food & Accessories</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Dairy & Frozen</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Grocery & Daily Needs</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Snacks & Drinks</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Household Essentials</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Beauty & Personal Care</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Pet Food & Accessories</Link></li>
+              <li><Link href="/products" className="hover:text-white transition-colors">Kids Food & Accessories</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link target='_blank' href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131">18 Mile, Manali, H.P.</Link></li>
-              <li><Link href="tel:+91 62303 37333">+91 62303 37333</Link></li>
-              <li><Link href="mailto:info@manalimart.co.in">info@manalimart.co.in</Link></li>
+              <li><Link target='_blank' className="hover:text-white transition-colors" href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131">18 Mile, Manali, H.P.</Link></li>
+              <li><Link className="hover:text-white transition-colors" href="tel:+91 62303 37333">+91 62303 37333</Link></li>
+              <li><Link className="hover:text-white transition-colors" href="mailto:info@manalimart.co.in">info@manalimart.co.in</Link></li>
               <li>7 AM - 10 PM</li>
             </ul>
           </div>
