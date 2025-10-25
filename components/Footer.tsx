@@ -41,7 +41,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="https://www.google.com/maps/dir//Manali+Mart,+Mall+Road,+Old+Manali,+Himachal+Pradesh,+175131">18 Mile, Manali, H.P.</Link></li>
+              <li><Link target='_blank' href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131">18 Mile, Manali, H.P.</Link></li>
               <li><Link href="tel:+91 62303 37333">+91 62303 37333</Link></li>
               <li><Link href="mailto:info@manalimart.co.in">info@manalimart.co.in</Link></li>
               <li>7 AM - 10 PM</li>
