@@ -254,7 +254,7 @@ export default function About() {
                 Browse Products
               </Button>
             </Link>
-            <Link href="https://www.google.com/maps/dir//Manali+Mart,+Mall+Road,+Old+Manali,+Himachal+Pradesh,+175131" target='_blank'>
+            <Link href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131" target='_blank'>
               <Button variant="outline" size="lg" className="border-white text-orange-500 hover:bg-white hover:text-black px-8 py-3">
                 Get Directions
               </Button>

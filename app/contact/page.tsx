@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { MapPin, Phone, Mail, Clock, Navigation, MessageCircle, Send } from 'lucide-react';
 import Link from 'next/link';
+import { on } from 'node:events';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -38,31 +39,34 @@ export default function Contact() {
       icon: <MapPin className="h-8 w-8 text-green-600" />,
       title: "Visit Our Store",
       details: [
-        "Mall Road, Old Manali",
-        "Manali, Himachal Pradesh",
+        "18 Mile, Manali",
+        "Himachal Pradesh",
         "175131, India"
       ],
-      action: "Get Directions"
+      action: "https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131",
+      buttonText: "Get Directions"
     },
     {
       icon: <Phone className="h-8 w-8 text-blue-600" />,
       title: "Call Us",
       details: [
-        "+91 98765 43210",
-        "+91 98765 43211",
-        "Landline: 01902-252XXX"
+        "+91 62303 37333",
+        "+91 79471 21545",
+        "WhatsApp: +91 62303 35333"
       ],
-      action: "Call Now"
+      action: "tel:+916230337333",
+      buttonText: "Call Now"
     },
     {
       icon: <Mail className="h-8 w-8 text-orange-600" />,
       title: "Email Us",
       details: [
-        "info@manalimart.com",
-        "orders@manalimart.com",
-        "support@manalimart.com"
+        "info@manalimart.co.in",
+        "contact@manalimart.co.in",
+        "support@manalimart.co.in"
       ],
-      action: "Send Email"
+      action: "mailto:info@manalimart.co.in",
+      buttonText: "Send Email"
     },
     {
       icon: <Clock className="h-8 w-8 text-purple-600" />,
@@ -72,7 +76,8 @@ export default function Contact() {
         "7:00 AM - 10:00 PM",
         "Open all days"
       ],
-      action: "View Schedule"
+      action: "#",
+      buttonText: "View Schedule"
     }
   ];
 
@@ -143,9 +148,11 @@ export default function Contact() {
                       <p key={idx} className="text-gray-600">{detail}</p>
                     ))}
                   </div>
-                  <Button variant="outline" size="sm" className="w-full">
-                    {info.action}
-                  </Button>
+                  <Link href={info.action}>
+                    <Button variant="outline" size="sm" className="w-full">
+                      {info.buttonText}
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
@@ -272,8 +279,8 @@ export default function Contact() {
                         <h4 className="font-semibold text-gray-900 mb-2">Address</h4>
                         <p className="text-gray-600">
                           Manali Mart<br />
-                          Mall Road, Old Manali<br />
-                          Manali, Himachal Pradesh 175131
+                          18 Mile, Manali<br />
+                          Himachal Pradesh 175131
                         </p>
                       </div>
                       
@@ -287,7 +294,7 @@ export default function Contact() {
                       </div>
 
                       <div>
-                        <Link href="https://www.google.com/maps/dir//Manali+Mart,+Mall+Road,+Old+Manali,+Himachal+Pradesh,+175131" target="_blank">
+                        <Link href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131" target="_blank">
                           <Button className="w-full bg-blue-600 hover:bg-blue-700">
                             <Navigation className="h-4 w-4 mr-2" />
                             Get Directions
@@ -341,9 +348,11 @@ export default function Contact() {
                 Browse Products
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="border-white text-orange-500 hover:bg-white hover:text-black px-8 py-3">
-              Call Us Now
-            </Button>
+            <Link href="tel:+916230337333">
+              <Button variant="outline" size="lg" className="border-white text-orange-500 hover:bg-white hover:text-black px-8 py-3">
+                Call Us Now
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
