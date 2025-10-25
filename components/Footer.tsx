@@ -28,19 +28,22 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Categories</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>Dairy & Frozen</li>
-              <li>Grocery & Daily Needs</li>
-              <li>Snacks & Drinks</li>
-              <li>Household Essentials</li>
+              <li><Link href="/products">Dairy & Frozen</Link></li>
+              <li><Link href="/products">Grocery & Daily Needs</Link></li>
+              <li><Link href="/products">Snacks & Drinks</Link></li>
+              <li><Link href="/products">Household Essentials</Link></li>
+              <li><Link href="/products">Beauty & Personal Care</Link></li>
+              <li><Link href="/products">Pet Food & Accessories</Link></li>
+              <li><Link href="/products">Kids Food & Accessories</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>18 Mile, Manali, H.P.</li>
-              <li>+91 98765 43210</li>
-              <li>info@manalimart.co.in</li>
+              <li><Link href="https://www.google.com/maps/dir//Manali+Mart,+Mall+Road,+Old+Manali,+Himachal+Pradesh,+175131">18 Mile, Manali, H.P.</Link></li>
+              <li><Link href="tel:+91 62303 37333">+91 62303 37333</Link></li>
+              <li><Link href="mailto:info@manalimart.co.in">info@manalimart.co.in</Link></li>
               <li>7 AM - 10 PM</li>
             </ul>
           </div>
