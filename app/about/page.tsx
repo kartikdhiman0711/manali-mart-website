@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Award, Heart, Mountain, Clock, MapPin, Truck, Shield } from 'lucide-react';
 import Link from 'next/link';
+import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 export default function About() {
   const stats = [
@@ -84,6 +85,8 @@ export default function About() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
+      <FloatingSocialIcons />
+        
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-700 via-green-600 to-green-800 text-white py-20">
         <div className="absolute inset-0 bg-black opacity-20"></div>

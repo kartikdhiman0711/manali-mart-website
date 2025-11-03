@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, ChevronRight, Percent, Tag, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
 import { categories } from '@/lib/categories';
+import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -104,6 +105,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
+      <FloatingSocialIcons />
+      
       {/* Hero Carousel */}
       <section className="relative h-[500px] overflow-hidden">
         {heroSlides.map((slide, index) => (
@@ -124,7 +127,6 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
                   <div className="max-w-2xl">
                     <div className="flex items-center space-x-2 mb-4">
-                      <Percent className="h-6 w-6" />
                       <Badge className="bg-orange-500 text-white px-3 py-1 text-lg font-bold">
                         {slide.discount}
                       </Badge>

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Star, Package, Info, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Tag } from 'lucide-react';
 import Link from 'next/link';
+import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 // -------------------- Types --------------------
 interface Product {
@@ -97,7 +98,9 @@ export default async function SingleProductPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-
+      
+      <FloatingSocialIcons />
+    
       {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
