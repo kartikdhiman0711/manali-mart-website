@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { ChevronDown, ChevronRight, Star, Tag, Grid3x3 as Grid3X3, List, Search } from 'lucide-react';
 import Link from 'next/link';
 import { categories } from '@/lib/categories';
+import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -186,7 +187,9 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-
+      
+      <FloatingSocialIcons />
+    
       <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8 py-2">
         <div className="flex flex-row gap-1 sm:gap-4 lg:gap-6">
           {/* Left Sidebar - Categories */}

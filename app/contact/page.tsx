@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { MapPin, Phone, Mail, Clock, Navigation, MessageCircle, Send } from 'lucide-react';
 import Link from 'next/link';
 import { on } from 'node:events';
+import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -107,6 +108,8 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
+      
+      <FloatingSocialIcons />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-700 via-green-600 to-green-800 text-white py-20">
@@ -263,7 +266,7 @@ export default function Contact() {
                     <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
                         <iframe
                         className='rounded-lg'
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2632.4133326645697!2d77.19384177439132!3d32.228089911838445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390462a7254c865d%3A0x4da59e7ad0000000!2sMANALI%20MART!5e1!3m2!1sen!2sin!4v1760727110363!5m2!1sen!2sin"
+                          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2634.2369986830904!2d77.17540699999999!3d32.165072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzLCsDA5JzU0LjMiTiA3N8KwMTAnMzEuNSJF!5e1!3m2!1sen!2sin!4v1762146503256!5m2!1sen!2sin"
                           width="525"
                           height="260"
                           style={{ border: 0 }}
@@ -279,22 +282,22 @@ export default function Contact() {
                         <h4 className="font-semibold text-gray-900 mb-2">Address</h4>
                         <p className="text-gray-600">
                           Manali Mart<br />
-                          18 Mile, Manali<br />
-                          Himachal Pradesh 175131
+                          Behind Bran School 17-18 Miles<br />
+                          Manali Distt Kullu HP
                         </p>
                       </div>
                       
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Landmarks</h4>
                         <ul className="text-gray-600 space-y-1">
-                          <li>• Near Old Manali Bridge</li>
-                          <li>• Opposite to Cafe 1947</li>
-                          <li>• 5 minutes walk from Bus Stand</li>
+                          <li>• Behind Bran School</li>
+                          <li>• Near Him Taj Hotel</li>
+                          <li>• Near BNT Motors</li>
                         </ul>
                       </div>
 
                       <div>
-                        <Link href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131" target="_blank">
+                        <Link href="https://www.google.com/maps/dir//32.16507, 77.17541" target="_blank">
                           <Button className="w-full bg-blue-600 hover:bg-blue-700">
                             <Navigation className="h-4 w-4 mr-2" />
                             Get Directions
