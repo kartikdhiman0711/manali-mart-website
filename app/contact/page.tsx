@@ -1,25 +1,17 @@
 "use client";
 
 import { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { 
-  Menu, 
-  X, 
-  Mountain,
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Navigation,
-  MessageCircle,
-  Send
-} from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Navigation, MessageCircle, Send } from 'lucide-react';
 import Link from 'next/link';
+import { on } from 'node:events';
+import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 export default function Contact() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,31 +40,34 @@ export default function Contact() {
       icon: <MapPin className="h-8 w-8 text-green-600" />,
       title: "Visit Our Store",
       details: [
-        "Mall Road, Old Manali",
-        "Manali, Himachal Pradesh",
+        "18 Mile, Manali",
+        "Himachal Pradesh",
         "175131, India"
       ],
-      action: "Get Directions"
+      action: "https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131",
+      buttonText: "Get Directions"
     },
     {
       icon: <Phone className="h-8 w-8 text-blue-600" />,
       title: "Call Us",
       details: [
-        "+91 98765 43210",
-        "+91 98765 43211",
-        "Landline: 01902-252XXX"
+        "+91 62303 37333",
+        "+91 79471 21545",
+        "WhatsApp: +91 62303 35333"
       ],
-      action: "Call Now"
+      action: "tel:+916230337333",
+      buttonText: "Call Now"
     },
     {
       icon: <Mail className="h-8 w-8 text-orange-600" />,
       title: "Email Us",
       details: [
-        "info@manalimart.com",
-        "orders@manalimart.com",
-        "support@manalimart.com"
+        "info@manalimart.co.in",
+        "contact@manalimart.co.in",
+        "support@manalimart.co.in"
       ],
-      action: "Send Email"
+      action: "mailto:info@manalimart.co.in",
+      buttonText: "Send Email"
     },
     {
       icon: <Clock className="h-8 w-8 text-purple-600" />,
@@ -82,14 +77,15 @@ export default function Contact() {
         "7:00 AM - 10:00 PM",
         "Open all days"
       ],
-      action: "View Schedule"
+      action: "#",
+      buttonText: "View Schedule"
     }
   ];
 
   const faqs = [
     {
       question: "Do you provide home delivery?",
-      answer: "Currently, we are a walk-in store and do not provide home delivery. However, we are located conveniently on Mall Road for easy access."
+      answer: "Currently, we are a walk-in store and do not provide home delivery. However, we are located conveniently at 18 Mile, Manali for easy access."
     },
     {
       question: "Do you accept online orders?",
@@ -111,49 +107,9 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <Mountain className="h-8 w-8 text-green-700" />
-              <div>
-                <h1 className="text-xl font-bold text-green-700">Manali Mart</h1>
-                <p className="text-xs text-gray-500">Mountain Fresh</p>
-              </div>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Home</Link>
-              <Link href="/products" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Products</Link>
-              <Link href="/about" className="text-gray-700 hover:text-green-700 transition-colors font-medium">About</Link>
-              <Link href="/contact" className="text-green-700 font-medium border-b-2 border-green-700">Contact</Link>
-            </div>
-
-            <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-green-700">Home</Link>
-              <Link href="/products" className="block px-3 py-2 text-gray-700 hover:text-green-700">Products</Link>
-              <Link href="/about" className="block px-3 py-2 text-gray-700 hover:text-green-700">About</Link>
-              <Link href="/contact" className="block px-3 py-2 text-green-700 font-medium">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar />
+      
+      <FloatingSocialIcons />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-700 via-green-600 to-green-800 text-white py-20">
@@ -195,9 +151,11 @@ export default function Contact() {
                       <p key={idx} className="text-gray-600">{detail}</p>
                     ))}
                   </div>
-                  <Button variant="outline" size="sm" className="w-full">
-                    {info.action}
-                  </Button>
+                  <Link href={info.action}>
+                    <Button variant="outline" size="sm" className="w-full">
+                      {info.buttonText}
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
@@ -306,11 +264,16 @@ export default function Contact() {
                   <div className="space-y-6">
                     {/* Map Placeholder */}
                     <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                        <p className="text-gray-500">Interactive Map</p>
-                        <p className="text-sm text-gray-400">Mall Road, Old Manali</p>
-                      </div>
+                        <iframe
+                        className='rounded-lg'
+                          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2634.2369986830904!2d77.17540699999999!3d32.165072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzLCsDA5JzU0LjMiTiA3N8KwMTAnMzEuNSJF!5e1!3m2!1sen!2sin!4v1762146503256!5m2!1sen!2sin"
+                          width="525"
+                          height="260"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        />
                     </div>
 
                     {/* Location Details */}
@@ -319,24 +282,28 @@ export default function Contact() {
                         <h4 className="font-semibold text-gray-900 mb-2">Address</h4>
                         <p className="text-gray-600">
                           Manali Mart<br />
-                          Mall Road, Old Manali<br />
-                          Manali, Himachal Pradesh 175131
+                          Behind Bran School 17-18 Miles<br />
+                          Manali Distt Kullu HP
                         </p>
                       </div>
                       
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Landmarks</h4>
                         <ul className="text-gray-600 space-y-1">
-                          <li>• Near Old Manali Bridge</li>
-                          <li>• Opposite to Cafe 1947</li>
-                          <li>• 5 minutes walk from Bus Stand</li>
+                          <li>• Behind Bran School</li>
+                          <li>• Near Him Taj Hotel</li>
+                          <li>• Near BNT Motors</li>
                         </ul>
                       </div>
 
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                        <Navigation className="h-4 w-4 mr-2" />
-                        Get Directions
-                      </Button>
+                      <div>
+                        <Link href="https://www.google.com/maps/dir//32.16507, 77.17541" target="_blank">
+                          <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                            <Navigation className="h-4 w-4 mr-2" />
+                            Get Directions
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -384,66 +351,16 @@ export default function Contact() {
                 Browse Products
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3">
-              Call Us Now
-            </Button>
+            <Link href="tel:+916230337333">
+              <Button variant="outline" size="lg" className="border-white text-orange-500 hover:bg-white hover:text-black px-8 py-3">
+                Call Us Now
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Mountain className="h-8 w-8 text-green-400" />
-                <div>
-                  <h3 className="text-xl font-bold">Manali Mart</h3>
-                  <p className="text-sm text-gray-400">Mountain Fresh</p>
-                </div>
-              </div>
-              <p className="text-gray-400">
-                Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Categories</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Dairy & Frozen</li>
-                <li>Grocery & Daily Needs</li>
-                <li>Snacks & Drinks</li>
-                <li>Household Essentials</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Mall Road, Old Manali</li>
-                <li>+91 98765 43210</li>
-                <li>info@manalimart.com</li>
-                <li>7 AM - 10 PM</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Manali Mart. All rights reserved. Made with ❤️ in the mountains.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

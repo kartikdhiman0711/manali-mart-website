@@ -196,7 +196,6 @@ const FEATURED_PRODUCTS = [
 ];
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState<any[]>([]);
@@ -237,53 +236,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ✅ Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <Mountain className="h-8 w-8 text-green-700" />
-              <div>
-                <h1 className="text-xl font-bold text-green-700">Manali Mart</h1>
-                <p className="text-xs text-gray-500">Mountain Fresh</p>
-              </div>
-            </Link>
+      <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Home</Link>
-              <Link href="/products" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Products</Link>
-              <Link href="/about" className="text-gray-700 hover:text-green-700 transition-colors font-medium">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-green-700 transition-colors font-medium">Contact</Link>
-            </div>
-
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="relative">
-                <Input placeholder="Search products..." className="w-64 pr-10" />
-                <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
-              </div>
-            </div>
-
-            <div className="md:hidden">
-              <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-green-700">Home</Link>
-              <Link href="/products" className="block px-3 py-2 text-gray-700 hover:text-green-700">Products</Link>
-              <Link href="/about" className="block px-3 py-2 text-gray-700 hover:text-green-700">About</Link>
-              <Link href="/contact" className="block px-3 py-2 text-gray-700 hover:text-green-700">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* ✅ Hero Slider */}
+      <FloatingSocialIcons />
+      
+      {/* Hero Carousel */}
       <section className="relative h-[500px] overflow-hidden">
         {HERO_SLIDES.map((slide, index) => (
           <div
@@ -306,7 +263,6 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
                   <div className="max-w-2xl">
                     <div className="flex items-center space-x-2 mb-4">
-                      <Percent className="h-6 w-6" />
                       <Badge className="bg-orange-500 text-white px-3 py-1 text-lg font-bold">
                         {slide.discount}
                       </Badge>
@@ -395,7 +351,7 @@ export default function Home() {
                     <div className="flex flex-wrap gap-1">
                       {cat.subcategories.slice(0, 3).map((sub, idx) => (
                         <Badge key={idx} variant="secondary" className="text-xs">
-                          {sub}
+                          {sub.name}
                         </Badge>
                       ))}
                       {cat.subcategories.length > 3 && (
