@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
 interface Product {
@@ -8,128 +8,98 @@ interface Product {
   name: string;
   price: string;
   originalPrice: string;
-  category: string;
-  subcategory: string;
   image: string;
   description: string;
-  detailedDescription: string;
-  brand: string;
-  weight: string;
-  ingredients: string;
 }
 
-interface ProductsGridProps {
-  category?: string; // optional — allows category filtering
+interface Subcategory {
+  id: string;
+  name: string;
+  products: Product[];
 }
 
-export default function ProductsGrid({ category }: ProductsGridProps) {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const observer = useRef<IntersectionObserver | null>(null);
+interface Category {
+  id: string;
+  name: string;
+  subcategories: Subcategory[];
+}
 
-  // Fetch products from the API
-  const fetchProducts = useCallback(async () => {
-    if (loading || !hasMore) return;
-  
-    setLoading(true);
-    try {
-      const limit = 10;
-      const query = new URLSearchParams({
-        limit: limit.toString(),
-        skip: ((page - 1) * limit).toString(),
-      });
-      if (category) query.append("category", category);
-  
-      const res = await fetch(`/api/products?${query.toString()}`);
-      const data = await res.json();
-  
-      const fetchedProducts = data.products || [];
-  
-      if (fetchedProducts.length < limit) setHasMore(false);
-      setProducts((prev) => [...prev, ...fetchedProducts]);
-    } catch (err) {
-      console.error("Failed to fetch products:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, category, hasMore, loading]);
+export default function ProductsGrid() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/products");
+        const data = await res.json();
 
-  // Infinite scroll observer
-  const lastProductRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPage((prev) => prev + 1);
+        if (Array.isArray(data)) {
+          setCategories(data);
+        } else {
+          console.error("Unexpected API response:", data);
         }
-      });
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
+    fetchData();
+  }, []);
 
-  // Reset products when category changes
-  useEffect(() => {
-    setProducts([]);
-    setPage(1);
-    setHasMore(true);
-  }, [category]);
+  if (loading) {
+    return <div className="p-6 text-center text-gray-500">Loading products...</div>;
+  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-      {products.map((product, index) => {
-        const isLast = index === products.length - 1;
-        return (
-          <Card
-            key={product.id}
-            ref={isLast ? lastProductRef : null}
-            className="hover:shadow-lg transition-shadow"
-          >
-            <CardHeader className="p-0">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="rounded-t-lg w-full h-48 object-cover"
-              />
-            </CardHeader>
-            <CardContent className="p-4">
-              <CardTitle className="text-lg font-semibold mb-2">
-                {product.name}
-              </CardTitle>
-              <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
-                {product.description}
-              </p>
-              <div className="flex items-center gap-2">
-                <span className="font-bold">{product.price}</span>
-                <span className="text-sm line-through text-gray-400">
-                  {product.originalPrice}
-                </span>
+    <div className="p-6 space-y-10">
+      {categories.map((cat) => (
+        <div key={cat.id}>
+          <h2 className="text-3xl font-bold mb-6">{cat.name}</h2>
+
+          {cat.subcategories.map((sub) => (
+            <div key={sub.id} className="mb-10">
+              <h3 className="text-xl font-semibold mb-4 text-gray-700">{sub.name}</h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {sub.products.length > 0 ? (
+                  sub.products.map((product) => (
+                    <Card key={product.id} className="hover:shadow-lg transition">
+                      <CardHeader className="p-0">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-48 object-cover rounded-t-lg"
+                        />
+                      </CardHeader>
+                      <CardContent className="p-4">
+                        <CardTitle className="text-lg font-semibold mb-2">
+                          {product.name}
+                        </CardTitle>
+                        <p className="text-sm text-gray-600 mb-3">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-green-700">{product.price}</span>
+                          {product.originalPrice && (
+                            <span className="text-sm line-through text-gray-400">
+                              {product.originalPrice}
+                            </span>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : (
+                  <p className="text-gray-500 text-sm">No products in this subcategory.</p>
+                )}
               </div>
-            </CardContent>
-          </Card>
-        );
-      })}
-
-      {loading && (
-        <div className="col-span-full text-center py-4 text-gray-500">
-          Loading more products...
+            </div>
+          ))}
         </div>
-      )}
-
-      {!hasMore && !loading && products.length > 0 && (
-        <div className="col-span-full text-center py-4 text-gray-500">
-          No more products to load.
-        </div>
-      )}
+      ))}
     </div>
   );
 }

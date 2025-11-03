@@ -1,42 +1,27 @@
-export const dynamic = "force-dynamic";
-
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { db } from "@/src/db/drizzle";
+import { Category, Subcategory, Product } from "@/src/db/schema";
 
-const prisma = new PrismaClient();
-
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(req.url);
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "20");
-    const category = searchParams.get("category") || "";
-    const q = searchParams.get("q") || "";
+    const categories = await db.select().from(Category);
+    const subcategories = await db.select().from(Subcategory);
+    const products = await db.select().from(Product);
 
-    const where: any = {};
-    if (category) where.category = category;
-    if (q)
-      where.OR = [{ name: { contains: q, mode: "insensitive" } }];
+    // Nest the structure: Category → Subcategory → Products
+    const structured = categories.map(cat => ({
+      ...cat,
+      subcategories: subcategories
+        .filter(sub => sub.categoryId === cat.id)
+        .map(sub => ({
+          ...sub,
+          products: products.filter(p => p.subcategoryId === sub.id),
+        })),
+    }));
 
-    const products = await prisma.product.findMany({
-      where,
-      skip: (page - 1) * limit,
-      take: limit,
-    });
-
-    const total = await prisma.product.count({ where });
-
-    return NextResponse.json({
-      products,
-      total,
-      page,
-      totalPages: Math.ceil(total / limit),
-    });
-  } catch (err: any) {
-    console.error("❌ API Error:", err);
-    return NextResponse.json(
-      { error: "Internal Server Error", details: err.message },
-      { status: 500 }
-    );
+    return NextResponse.json(structured);
+  } catch (err) {
+    console.error("❌ Error fetching data:", err);
+    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }
 }
