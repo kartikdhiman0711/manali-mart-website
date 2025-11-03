@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
+import FloatingSocialIcons from "@/components/FloatingSocialIcons";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -236,7 +239,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <Navbar />
 
       <FloatingSocialIcons />
       
@@ -351,7 +354,7 @@ export default function Home() {
                     <div className="flex flex-wrap gap-1">
                       {cat.subcategories.slice(0, 3).map((sub, idx) => (
                         <Badge key={idx} variant="secondary" className="text-xs">
-                          {sub.name}
+                          {sub}
                         </Badge>
                       ))}
                       {cat.subcategories.length > 3 && (

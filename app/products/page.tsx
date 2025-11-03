@@ -10,6 +10,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface Category {
   id: string;
@@ -83,6 +85,8 @@ export default function ProductsPage() {
   if (error) return <div className="p-6 text-red-500">{error}</div>;
 
   return (
+    <>
+    <Navbar/>
     <div className="flex flex-col lg:flex-row gap-6 p-6">
       {/* --- Left Sidebar: Category Accordion --- */}
       <div className="w-full lg:w-1/4">
@@ -189,6 +193,9 @@ export default function ProductsPage() {
           )}
         </div>
       </div>
+      
     </div>
+    <Footer/>
+    </>
   );
 }
