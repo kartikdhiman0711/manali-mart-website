@@ -13,6 +13,9 @@ import {
     name: varchar("name", { length: 255 }).notNull().unique(),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
     updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+    image: varchar("image", { length: 500 }),
+    description: text("description"),
+    itemCount: varchar("itemCount", { length: 50 }),
   });
   
   // 🗂️ Subcategory Table

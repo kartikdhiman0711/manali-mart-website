@@ -43,7 +43,7 @@ export default function Navbar({ searchTerm = '', onSearchChange }: NavbarProps)
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center md:h-24">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/logo-footer.png" alt="Website Logo" width={120} height={60} className="w-auto h-16 md:h-24" />
+            <Image src="/logo.png" alt="Website Logo" width={120} height={60} className="w-auto h-16 md:h-24" />
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
