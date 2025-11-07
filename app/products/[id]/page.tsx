@@ -56,15 +56,8 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
         if (!res.ok) throw new Error("Failed to fetch data");
         const categories: Category[] = await res.json();
 
-        console.log("Looking for product ID:", resolvedParams.id);
-        console.log("Product ID type:", typeof resolvedParams.id);
-        console.log("Product ID length:", resolvedParams.id.length);
-        console.log("Product ID char codes:", Array.from(resolvedParams.id).map(c => c.charCodeAt(0)));
-        console.log("Categories fetched:", categories.length);
-
         // Trim and normalize the ID from URL
         const searchId = String(resolvedParams.id).trim();
-        console.log("Normalized search ID:", searchId);
 
         // Find the product by ID
         let foundProduct: Product | null = null;
@@ -79,7 +72,6 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
             subcategory.products.forEach(p => allProductIds.push(p.id));
             const prod = subcategory.products.find(p => {
               const dbId = String(p.id).trim();
-              console.log(`Comparing DB: "${dbId}" (type: ${typeof p.id}) === URL: "${searchId}" (type: ${typeof searchId})`, dbId === searchId);
               return dbId === searchId;
             });
             if (prod) {
@@ -91,9 +83,6 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
           }
           if (foundProduct) break;
         }
-
-        console.log("All available product IDs:", allProductIds);
-        console.log("Found product:", foundProduct);
 
         if (!foundProduct) {
           setError("Product not found");
@@ -275,8 +264,8 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Similar Products</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {similarProducts.map(similar => (
-                <Card key={similar.id} className="group hover:shadow-xl transition-all duration-300">
-                  <div className="relative">
+                <Card key={similar.id} className="group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                  <div className="relative flex-shrink-0">
                     <img 
                       src={similar.image || 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg'} 
                       alt={similar.name}
@@ -289,7 +278,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                       <Badge className="absolute top-2 left-2 bg-blue-600">{similar.brand}</Badge>
                     )}
                   </div>
-                  <CardHeader className="pb-2">
+                  <CardHeader className="pb-2 flex-shrink-0">
                     <CardTitle className="text-lg">{similar.name}</CardTitle>
                     <div className="flex items-center justify-between">
                       {similar.rating && (
@@ -301,17 +290,19 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                       <Badge variant="secondary" className="text-xs">{subcategoryName}</Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                  <CardContent className="pt-0 flex flex-col flex-grow">
+                    <p className="text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">
                       {similar.description || 'No description available'}
                     </p>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xl font-bold text-green-700">₹{similar.price}</span>
-                      <Tag className="h-5 w-5 text-gray-400" />
+                    <div className="mt-auto">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-xl font-bold text-green-700">₹{similar.price}</span>
+                        <Tag className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <Link href={`/products/${similar.id}`}>
+                        <Button className="w-full bg-green-700 hover:bg-green-800">View Details</Button>
+                      </Link>
                     </div>
-                    <Link href={`/products/${similar.id}`}>
-                      <Button className="w-full bg-green-700 hover:bg-green-800">View Details</Button>
-                    </Link>
                   </CardContent>
                 </Card>
               ))}

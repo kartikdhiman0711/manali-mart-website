@@ -236,56 +236,56 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {categories.map((category) => (
-                <Card key={category.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-                  <div className="relative h-48 overflow-hidden">
-                    {category.image ? (
-                      <img 
-                        src={category.image} 
-                        alt={category.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                        <Tag className="h-16 w-16 text-white opacity-50" />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-10 transition-opacity"></div>
-                    <Badge className="absolute top-2 right-2 bg-green-600">
-                      {category.itemCount || `${category.subcategories.reduce((acc, sub) => acc + sub.products.length, 0)}+ items`}
-                    </Badge>
-                  </div>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{category.name}</CardTitle>
-                    <CardDescription>
-                      {category.description || `Browse ${category.name.toLowerCase()} products`}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-1 mb-4">
-                      <p className="text-sm font-medium text-gray-700">Popular items:</p>
-                      <div className="flex flex-wrap gap-1">
-                        {category.subcategories.slice(0, 3).map((sub) => (
-                          <Badge key={sub.id} variant="secondary" className="text-xs">
-                            {sub.name}
-                          </Badge>
-                        ))}
-                        {category.subcategories.length > 3 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{category.subcategories.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    <Link href="/products">
-                      <Button className="w-full bg-green-700 hover:bg-green-800">
-                        View Products
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+  {categories.map((category) => (
+    <Card key={category.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full">
+      <div className="relative h-48 overflow-hidden">
+        {category.image ? (
+          <img 
+            src={category.image} 
+            alt={category.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+            <Tag className="h-16 w-16 text-white opacity-50" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-10 transition-opacity"></div>
+        <Badge className="absolute top-2 right-2 bg-green-600">
+          {category.itemCount || `${category.subcategories.reduce((acc, sub) => acc + sub.products.length, 0)}+ items`}
+        </Badge>
+      </div>
+      <CardHeader className="pb-2 flex-shrink-0">
+        <CardTitle className="text-lg">{category.name}</CardTitle>
+        <CardDescription>
+          {category.description || `Browse ${category.name.toLowerCase()} products`}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="pt-0 flex flex-col flex-grow">
+        <div className="space-y-1 mb-4 flex-grow">
+          <p className="text-sm font-medium text-gray-700">Popular items:</p>
+          <div className="flex flex-wrap gap-1">
+            {category.subcategories.slice(0, 3).map((sub) => (
+              <Badge key={sub.id} variant="secondary" className="text-xs">
+                {sub.name}
+              </Badge>
+            ))}
+            {category.subcategories.length > 3 && (
+              <Badge variant="secondary" className="text-xs">
+                +{category.subcategories.length - 3} more
+              </Badge>
+            )}
+          </div>
+        </div>
+        <Link href="/products" className="mt-auto">
+          <Button className="w-full bg-green-700 hover:bg-green-800">
+            View Products
+          </Button>
+        </Link>
+      </CardContent>
+    </Card>
+  ))}
+</div>
           )}
         </div>
       </section>
@@ -307,42 +307,42 @@ export default function Home() {
             </div>
           ) : featuredProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {featuredProducts.map((product) => {
-                const category = categories.find(c => c.id === product.categoryId);
-                return (
-                  <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
-                    <div className="relative">
-                      <img 
-                        src={product.image || 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300'} 
-                        alt={product.name}
-                        className="w-full h-48 object-cover rounded-t-lg"
-                      />
-                      <Badge className="absolute top-2 right-2 bg-blue-600">
-                        {category?.name || 'Product'}
-                      </Badge>
-                    </div>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg">{product.name}</CardTitle>
-                      {product.rating && (
-                        <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <span className="text-sm text-gray-600">{product.rating}</span>
-                        </div>
-                      )}
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-sm text-gray-600 mb-3">
-                        {product.description || 'Quality product from our store'}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl font-bold text-green-700">₹{product.price}</span>
-                        <Tag className="h-5 w-5 text-gray-400" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+  {featuredProducts.map((product) => {
+    const category = categories.find(c => c.id === product.categoryId);
+    return (
+      <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+        <div className="relative flex-shrink-0">
+          <img 
+            src={product.image || 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300'} 
+            alt={product.name}
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <Badge className="absolute top-2 right-2 bg-blue-600">
+            {category?.name || 'Product'}
+          </Badge>
+        </div>
+        <CardHeader className="pb-2 flex-shrink-0">
+          <CardTitle className="text-lg">{product.name}</CardTitle>
+          {product.rating && (
+            <div className="flex items-center space-x-1">
+              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+              <span className="text-sm text-gray-600">{product.rating}</span>
             </div>
+          )}
+        </CardHeader>
+        <CardContent className="pt-0 flex flex-col flex-grow">
+          <p className="text-sm text-gray-600 mb-3 flex-grow">
+            {product.description || 'Quality product from our store'}
+          </p>
+          <div className="flex items-center justify-between mt-auto">
+            <span className="text-xl font-bold text-green-700">₹{product.price}</span>
+            <Tag className="h-5 w-5 text-gray-400" />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  })}
+</div>
           ) : (
             <div className="text-center py-12">
               <p className="text-gray-600">No featured products available</p>

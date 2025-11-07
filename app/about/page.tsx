@@ -107,8 +107,8 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow flex flex-col h-full">
+                <CardHeader className="flex-shrink-0">
                   <div className="flex justify-center mb-4">
                     {stat.icon}
                   </div>
@@ -119,7 +119,7 @@ export default function About() {
                     {stat.label}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-grow flex items-center justify-center">
                   <p className="text-gray-600">{stat.description}</p>
                 </CardContent>
               </Card>
@@ -221,8 +221,8 @@ export default function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow flex flex-col h-full">
+                <CardHeader className="flex-shrink-0">
                   <div className="relative w-32 h-32 mx-auto mb-4">
                     <img 
                       src={member.image} 
@@ -235,7 +235,7 @@ export default function About() {
                     {member.role}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-grow flex items-center justify-center">
                   <p className="text-gray-600">{member.description}</p>
                 </CardContent>
               </Card>
@@ -257,7 +257,7 @@ export default function About() {
                 Browse Products
               </Button>
             </Link>
-            <Link href="https://www.google.com/maps/dir//Manali+Mart,opposite+Hotel+Park+Paradise,+Aleo,+Bashisht,+Manali,+Himachal+Pradesh+175131" target='_blank'>
+            <Link href="https://www.google.com/maps/dir//32.16507, 77.17541" target='_blank'>
               <Button variant="outline" size="lg" className="border-white text-orange-500 hover:bg-white hover:text-black px-8 py-3">
                 Get Directions
               </Button>
