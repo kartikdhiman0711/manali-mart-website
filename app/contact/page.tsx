@@ -138,20 +138,20 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow flex flex-col h-full">
+                <CardHeader className="flex-shrink-0">
                   <div className="flex justify-center mb-4">
                     {info.icon}
                   </div>
                   <CardTitle className="text-xl">{info.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 mb-4">
+                <CardContent className="flex flex-col flex-grow">
+                  <div className="space-y-2 mb-4 flex-grow">
                     {info.details.map((detail, idx) => (
                       <p key={idx} className="text-gray-600">{detail}</p>
                     ))}
                   </div>
-                  <Link href={info.action}>
+                  <Link href={info.action} className="mt-auto">
                     <Button variant="outline" size="sm" className="w-full">
                       {info.buttonText}
                     </Button>
