@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { MapPin, Phone, Mail, Clock, Navigation, MessageCircle, Send } from 'lucide-react';
 import Link from 'next/link';
-import { on } from 'node:events';
 import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
 export default function Contact() {
@@ -18,21 +17,143 @@ export default function Contact() {
     phone: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+  const [validationErrors, setValidationErrors] = useState({
+    email: '',
+    phone: ''
+  });
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    if (!phone) return true; // Phone is optional
+    
+    // Remove spaces, dashes, and plus signs
+    const cleanPhone = phone.replace(/[\s\-+]/g, '');
+    
+    // Check if it contains only digits
+    if (!/^\d+$/.test(cleanPhone)) {
+      return false;
+    }
+    
+    // Remove country code if present
+    const phoneDigits = cleanPhone.replace(/^91/, '');
+    
+    // Check if it's exactly 10 digits
+    return phoneDigits.length === 10;
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    // For phone input, only allow digits, spaces, dashes, and plus
+    if (name === 'phone') {
+      const filteredValue = value.replace(/[^\d\s\-+]/g, '');
+      setFormData(prev => ({
+        ...prev,
+        [name]: filteredValue
+      }));
+      
+      // Validate phone on change
+      if (filteredValue && !validatePhone(filteredValue)) {
+        setValidationErrors(prev => ({
+          ...prev,
+          phone: 'Phone number must be 10 digits'
+        }));
+      } else {
+        setValidationErrors(prev => ({
+          ...prev,
+          phone: ''
+        }));
+      }
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+      
+      // Validate email on change
+      if (name === 'email') {
+        if (value && !validateEmail(value)) {
+          setValidationErrors(prev => ({
+            ...prev,
+            email: 'Please enter a valid email address'
+          }));
+        } else {
+          setValidationErrors(prev => ({
+            ...prev,
+            email: ''
+          }));
+        }
+      }
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    
+    // Clear previous status
+    setSubmitStatus({ type: null, message: '' });
+
+    // Validate email
+    if (!validateEmail(formData.email)) {
+      setValidationErrors(prev => ({
+        ...prev,
+        email: 'Please enter a valid email address'
+      }));
+      return;
+    }
+
+    // Validate phone if provided
+    if (formData.phone && !validatePhone(formData.phone)) {
+      setValidationErrors(prev => ({
+        ...prev,
+        phone: 'Phone number must be exactly 10 digits'
+      }));
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you for your message! We will get back to you soon.',
+        });
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setValidationErrors({ email: '', phone: '' });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Failed to send message. Please try again.',
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'An error occurred. Please try again later.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -181,6 +302,19 @@ export default function Contact() {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Status Message */}
+                    {submitStatus.type && (
+                      <div
+                        className={`p-4 rounded-lg ${
+                          submitStatus.type === 'success'
+                            ? 'bg-green-50 text-green-800 border border-green-200'
+                            : 'bg-red-50 text-red-800 border border-red-200'
+                        }`}
+                      >
+                        {submitStatus.message}
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -194,11 +328,12 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleInputChange}
                           placeholder="Your full name"
+                          disabled={isSubmitting}
                         />
                       </div>
                       <div>
                         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                          Phone Number
+                          Phone Number (10 digits)
                         </label>
                         <Input
                           id="phone"
@@ -207,7 +342,13 @@ export default function Contact() {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="+91 XXXXX XXXXX"
+                          disabled={isSubmitting}
+                          className={validationErrors.phone ? 'border-red-500' : ''}
+                          maxLength={15}
                         />
+                        {validationErrors.phone && (
+                          <p className="text-red-500 text-xs mt-1">{validationErrors.phone}</p>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -222,7 +363,12 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="your.email@example.com"
+                        disabled={isSubmitting}
+                        className={validationErrors.email ? 'border-red-500' : ''}
                       />
+                      {validationErrors.email && (
+                        <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
@@ -236,12 +382,26 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleInputChange}
                         placeholder="Tell us how we can help you..."
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        disabled={isSubmitting}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                       />
                     </div>
-                    <Button type="submit" className="w-full bg-green-700 hover:bg-green-800">
-                      <Send className="h-4 w-4 mr-2" />
-                      Send Message
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-green-700 hover:bg-green-800"
+                      disabled={isSubmitting || !!validationErrors.email || !!validationErrors.phone}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4 mr-2" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
@@ -262,7 +422,7 @@ export default function Contact() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
-                    {/* Map Placeholder */}
+                    {/* Map */}
                     <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
                         <iframe
                         className='rounded-lg'
