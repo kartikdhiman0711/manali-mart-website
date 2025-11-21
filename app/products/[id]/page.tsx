@@ -24,6 +24,7 @@ interface Product {
   reviewCount?: number;
   brand?: string;
   availability?: string;
+  scheme?: string; 
 }
 
 interface Category {
@@ -172,6 +173,11 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
               {product.originalPrice && (
                 <Badge className="absolute top-4 left-4 bg-red-600">SALE</Badge>
               )}
+              {product.scheme && (
+  <Badge className="absolute top-4 left-16 bg-purple-600">
+    {product.scheme}
+  </Badge>
+)}
             </div>
           </div>
 
@@ -201,7 +207,11 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                 <span className="text-3xl font-bold text-green-700">₹{product.price}</span>
                 {product.originalPrice && (
                   <span className="text-xl text-gray-500 line-through">₹{product.originalPrice}</span>
-                )}
+                )}{product.scheme && (
+    <Badge className="bg-purple-600 text-white px-3 py-1">
+      {product.scheme}
+    </Badge>
+  )}
               </div>
             </div>
 

@@ -35,6 +35,7 @@ import {
     name: varchar("name", { length: 255 }).notNull(),
     price: varchar("price", { length: 50 }).notNull(),
     originalPrice: varchar("originalPrice", { length: 50 }),
+    scheme: varchar("scheme", { length: 255 }),
     categoryId: integer("categoryId")
       .references(() => Category.id, { onDelete: "set null" }),
     subcategoryId: integer("subcategoryId")
