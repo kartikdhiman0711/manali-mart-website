@@ -39,6 +39,7 @@ interface Product {
   reviewCount?: number;
   brand?: string;
   availability?: string;
+  scheme?: string; 
 }
 
 export default function Products() {
@@ -315,11 +316,11 @@ export default function Products() {
         <Badge className="absolute top-1 right-1 bg-green-600 text-xs px-1 py-0.5">
           {product.availability || 'In Stock'}
         </Badge>
-        {product.originalPrice && (
-          <Badge className="absolute top-1 left-1 bg-red-600 text-xs px-1 py-0.5">
-            SALE
-          </Badge>
-        )}
+        {(product.originalPrice || product.scheme) && (
+  <Badge className="absolute top-1 left-1 bg-red-600 text-xs px-1 py-0.5">
+    {product.scheme || 'SALE'}
+  </Badge>
+)}
       </div>
       
       <div className={`flex flex-col flex-grow ${viewMode === 'list' ? 'flex-1' : ''}`}>
