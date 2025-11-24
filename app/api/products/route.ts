@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { db } from "@/src/db/drizzle";
 import { Category, Subcategory, Product } from "@/src/db/schema";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET() {
   try {
     const categories = await db.select().from(Category);
@@ -21,7 +24,7 @@ export async function GET() {
 
     return NextResponse.json(structured);
   } catch (err) {
-    console.error("❌ Error fetching data:", err);
+    console.error("Error fetching data:", err);
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }
 }
