@@ -5,7 +5,7 @@ import { useState, useEffect, use } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Star, Package, Info, CheckCircle, AlertCircle, Tag } from 'lucide-react';
 import Link from 'next/link';
@@ -15,15 +15,16 @@ interface Product {
   id: string;
   name: string;
   description: string;
+  detailedDescription?: string;
   image?: string;
   price: number;
   categoryId: string;
   subcategoryId: string;
   originalPrice?: number;
-  rating?: number;
-  reviewCount?: number;
+  // rating?: number;
+  // reviewCount?: number;
   brand?: string;
-  availability?: string;
+  // availability?: string;
   scheme?: string; 
 }
 
@@ -167,17 +168,23 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                 alt={product.name}
                 className="w-full h-96 object-cover rounded-lg shadow-lg"
               />
-              <Badge className="absolute top-4 right-4 bg-green-600">
+              {/* <Badge className="absolute top-4 right-2 bg-green-600">
                 {product.availability || 'In Stock'}
-              </Badge>
-              {product.originalPrice && (
-                <Badge className="absolute top-4 left-4 bg-red-600">SALE</Badge>
-              )}
+              </Badge> */}
+              {/* {product.originalPrice && (
+                <Badge className="absolute top-4 left-2 bg-red-600">SALE</Badge>
+              )} */}
               {product.scheme && (
-  <Badge className="absolute top-4 left-16 bg-purple-600">
-    {product.scheme}
-  </Badge>
-)}
+                <div className="absolute top-4 left-2 flex gap-2">
+                  <Badge className="bg-red-600">SALE</Badge>
+                  <Badge className="bg-green-600">{product.scheme}</Badge>
+                </div>
+              )}
+            </div>
+            <div className="mt-8 p-4 bg-gray-50 rounded-lg border">
+              <p className="text-xs text-gray-600 leading-relaxed">
+                <span className='text-red-600'>*</span> Images are for representation purposes only. Every effort is made to maintain accuracy of all information displayed. Refer Manali Mart Terms & Conditions to know more. Product packaging of actual product delivered may differ based on stock.
+              </p>
             </div>
           </div>
 
@@ -190,7 +197,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
               <div className="flex items-center space-x-4 mb-4">
-                {product.rating && (
+                {/* {product.rating && (
                   <div className="flex items-center space-x-1">
                     <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                     <span className="text-lg font-semibold">{product.rating}</span>
@@ -198,7 +205,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                       <span className="text-gray-600">({product.reviewCount} reviews)</span>
                     )}
                   </div>
-                )}
+                )} */}
                 {product.brand && (
                   <Badge className="bg-blue-600">{product.brand}</Badge>
                 )}
@@ -208,18 +215,29 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                 {product.originalPrice && (
                   <span className="text-xl text-gray-500 line-through">₹{product.originalPrice}</span>
                 )}{product.scheme && (
-    <Badge className="bg-purple-600 text-white px-3 py-1">
-      {product.scheme}
-    </Badge>
-  )}
+                  <Badge className="bg-green-600 text-white px-3 py-1">
+                    {product.scheme}
+                  </Badge>
+                )}
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {product.description || 'No description available'}
-              </p>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Overview</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {product.description || 'No description available'}
+                </p>
+              </div>
+              
+              {product.detailedDescription && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Product Details</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {product.detailedDescription}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Info Cards */}
@@ -258,7 +276,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                   <div className="flex items-center space-x-2 mb-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     <span className="text-green-700 font-medium">
-                      {product.availability || 'In Stock'}
+                      {'In Stock'}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">Visit our store to purchase this product</p>
@@ -280,10 +298,15 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                       src={similar.image || 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg'} 
                       alt={similar.name}
                       className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                    <Badge className="absolute top-2 right-2 bg-green-600">
+                    />{similar.scheme && (
+                  <Badge className="absolute top-2 right-2 bg-green-600">
+                    {similar.scheme}
+                  </Badge>
+                )}
+                
+                    {/* <Badge className="absolute top-2 right-2 bg-green-600">
                       {similar.availability || 'In Stock'}
-                    </Badge>
+                    </Badge> */}
                     {similar.brand && (
                       <Badge className="absolute top-2 left-2 bg-blue-600">{similar.brand}</Badge>
                     )}
@@ -291,12 +314,12 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                   <CardHeader className="pb-2 flex-shrink-0">
                     <CardTitle className="text-lg">{similar.name}</CardTitle>
                     <div className="flex items-center justify-between">
-                      {similar.rating && (
+                      {/* {similar.rating && (
                         <div className="flex items-center space-x-1">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                           <span className="text-sm text-gray-600">{similar.rating}</span>
                         </div>
-                      )}
+                      )} */}
                       <Badge variant="secondary" className="text-xs">{subcategoryName}</Badge>
                     </div>
                   </CardHeader>

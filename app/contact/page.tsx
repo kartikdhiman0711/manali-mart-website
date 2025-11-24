@@ -195,7 +195,7 @@ export default function Contact() {
       title: "Store Hours",
       details: [
         "Monday - Sunday",
-        "7:00 AM - 10:00 PM",
+        "08:00 AM - 09:00 PM",
         "Open all days"
       ],
       action: "#",
@@ -417,7 +417,7 @@ export default function Contact() {
                     <span>Find Us</span>
                   </CardTitle>
                   <CardDescription>
-                    Located in the heart of Old Manali on Mall Road
+                    Located in the heart of Manali at 18 Mile. Visit us for all your grocery needs.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

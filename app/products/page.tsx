@@ -35,10 +35,10 @@ interface Product {
   categoryId: string;
   subcategoryId: string;
   originalPrice?: number;
-  rating?: number;
-  reviewCount?: number;
+  // rating?: number;
+  // reviewCount?: number;
   brand?: string;
-  availability?: string;
+  // availability?: string;
   scheme?: string; 
 }
 
@@ -291,100 +291,105 @@ export default function Products() {
             {/* Products Grid */}
             {filteredProducts.length > 0 ? (
               <div className={`grid gap-1 sm:gap-4 ${
-  viewMode === 'grid' 
-    ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-    : 'grid-cols-1'
-}`}>
-  {filteredProducts.map((product) => (
-    <Card key={product.id} className={`group hover:shadow-lg transition-all duration-300 overflow-hidden flex ${
-      viewMode === 'list' ? 'flex-col sm:flex-row' : 'flex-col h-full'
-    }`}>
-      <div className={`relative flex-shrink-0 ${
-        viewMode === 'list' 
-          ? 'w-full h-24 sm:w-24 sm:h-24 lg:w-32 lg:h-full' 
-          : ''
-      }`}>
-        <img 
-          src={product.image} 
-          alt={product.name}
-          className={`object-cover ${
-            viewMode === 'list' 
-              ? 'w-full h-full rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none' 
-              : 'w-full h-24 sm:h-32 lg:h-40 rounded-t-lg'
-          }`}
-        />
-        <Badge className="absolute top-1 right-1 bg-green-600 text-xs px-1 py-0.5">
-          {product.availability || 'In Stock'}
-        </Badge>
-        {(product.originalPrice || product.scheme) && (
-  <Badge className="absolute top-1 left-1 bg-red-600 text-xs px-1 py-0.5">
-    {product.scheme || 'SALE'}
-  </Badge>
-)}
-      </div>
-      
-      <div className={`flex flex-col flex-grow ${viewMode === 'list' ? 'flex-1' : ''}`}>
-        <CardHeader className={`flex-shrink-0 ${viewMode === 'list' ? 'pb-1 px-1 pt-2' : 'pb-1 px-1 pt-2'}`}>
-          <div className="flex items-center justify-between mb-1 sm:mb-2">
-            {product.brand && (
-              <Badge variant="secondary" className="text-xs px-1 py-0.5">
-                {product.brand}
-              </Badge>
-            )}
-            {product.rating && (
-              <div className="flex items-center space-x-1">
-                <Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
-                <span className="text-xs text-gray-600">{product.rating}</span>
-              </div>
-            )}
-          </div>
-          <CardTitle className={`leading-tight ${
-            viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
-          }`}>
-            {product.name}
-          </CardTitle>
-          <CardDescription className="text-xs text-gray-500 truncate">
-            {categories.flatMap(c => c.subcategories).find(s => s.id === product.subcategoryId)?.name || 'Product'}
-          </CardDescription>
-        </CardHeader>
-        
-        <CardContent className={`flex flex-col flex-grow ${viewMode === 'list' ? 'pt-0 px-1 pb-2' : 'pt-0 px-1 pb-2'}`}>
-          <p className={`text-gray-600 mb-2 line-clamp-2 flex-grow ${
-            viewMode === 'list' ? 'text-xs' : 'text-xs'
-          }`}>
-            {product.description || 'No description available'}
-          </p>
-          
-          <div className="mt-auto">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-2">
-                <span className={`font-bold text-green-700 ${
-                  viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
+              viewMode === 'grid' 
+                ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+                : 'grid-cols-1'
+            }`}>
+              {filteredProducts.map((product) => (
+                <Card key={product.id} className={`group hover:shadow-lg transition-all duration-300 overflow-hidden flex ${
+                  viewMode === 'list' ? 'flex-col sm:flex-row' : 'flex-col h-full'
                 }`}>
-                  ₹{product.price}
-                </span>
-                {product.originalPrice && (
-                  <span className={`text-gray-500 line-through ${
-                    viewMode === 'list' ? 'text-xs' : 'text-xs'
+                  <div className={`relative flex-shrink-0 ${
+                    viewMode === 'list' 
+                      ? 'w-full h-24 sm:w-24 sm:h-24 lg:w-32 lg:h-full' 
+                      : ''
                   }`}>
-                    ₹{product.originalPrice}
-                  </span>
-                )}
-              </div>
-              <Tag className="h-3 w-3 text-gray-400" />
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className={`object-cover ${
+                        viewMode === 'list' 
+                          ? 'w-full h-full rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none' 
+                          : 'w-full h-24 sm:h-32 lg:h-40 rounded-t-lg'
+                      }`}
+                    />
+                    {/* <Badge className="absolute top-1 right-1 bg-green-600 text-xs px-1 py-0.5">
+                      {product.availability || 'In Stock'}
+                    </Badge> */}
+                    {(product.scheme) && (
+                      <Badge className="absolute top-1 left-1 bg-green-600 text-xs px-1 py-0.5">
+                        {product.scheme}
+                      </Badge>
+                    )}
+                    {/* {(product.originalPrice || product.scheme) && (
+                      <Badge className="absolute top-1 left-1 bg-red-600 text-xs px-1 py-0.5">
+                        {product.scheme || 'SALE'}
+                      </Badge>
+                    )} */}
+                  </div>
+                  
+                  <div className={`flex flex-col flex-grow ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                    <CardHeader className={`flex-shrink-0 ${viewMode === 'list' ? 'pb-1 px-1 pt-2' : 'pb-1 px-1 pt-2'}`}>
+                      <div className="flex items-center justify-between mb-1 sm:mb-2">
+                        {product.brand && (
+                          <Badge variant="secondary" className="text-xs text-primary-foreground hover:bg-primary/80 bg-blue-600 px-1 py-0.5">
+                            {product.brand}
+                          </Badge>
+                        )}
+                        {/* {product.rating && (
+                          <div className="flex items-center space-x-1">
+                            <Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
+                            <span className="text-xs text-gray-600">{product.rating}</span>
+                          </div>
+                        )} */}
+                      </div>
+                      <CardTitle className={`leading-tight ${
+                        viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
+                      }`}>
+                        {product.name}
+                      </CardTitle>
+                      <CardDescription className="text-xs text-gray-500 truncate">
+                        {categories.flatMap(c => c.subcategories).find(s => s.id === product.subcategoryId)?.name || 'Product'}
+                      </CardDescription>
+                    </CardHeader>
+                    
+                    <CardContent className={`flex flex-col flex-grow ${viewMode === 'list' ? 'pt-0 px-1 pb-2' : 'pt-0 px-1 pb-2'}`}>
+                      <p className={`text-gray-600 mb-2 line-clamp-2 flex-grow ${
+                        viewMode === 'list' ? 'text-xs' : 'text-xs'
+                      }`}>
+                        {product.description || 'No description available'}
+                      </p>
+                      
+                      <div className="mt-auto">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-2">
+                            <span className={`font-bold text-green-700 ${
+                              viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
+                            }`}>
+                              ₹{product.price}
+                            </span>
+                            {product.originalPrice && (
+                              <span className={`text-gray-500 line-through ${
+                                viewMode === 'list' ? 'text-xs' : 'text-xs'
+                              }`}>
+                                ₹{product.originalPrice}
+                              </span>
+                            )}
+                          </div>
+                          <Tag className="h-3 w-3 text-gray-400" />
+                        </div>
+                        
+                        <Link href={`/products/${product.id}`}>
+                          <Button className="w-full bg-green-700 hover:bg-green-800 text-xs py-1.5">
+                            View Details
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </div>
+                </Card>
+              ))}
             </div>
-            
-            <Link href={`/products/${product.id}`}>
-              <Button className="w-full bg-green-700 hover:bg-green-800 text-xs py-1.5">
-                View Details
-              </Button>
-            </Link>
-          </div>
-        </CardContent>
-      </div>
-    </Card>
-  ))}
-</div>
             ) : (
               <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
                 <div className="text-gray-400 mb-4">
