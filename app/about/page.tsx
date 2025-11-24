@@ -68,16 +68,16 @@ export default function About() {
       description: "With over 15 years of retail experience, Varun founded Manali Mart with a vision to serve the community."
     },
     {
-      name: "Priya Thakur",
-      role: "Assistant Manager",
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300",
-      description: "Priya manages daily operations and ensures our shelves are always stocked with fresh products."
+      name: "Sanjay Thakur",
+      role: "General Manager",
+      image: "https://img.freepik.com/free-photo/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign_53876-129417.jpg?t=st=1763736496~exp=1763740096~hmac=542b781adf990b297cae6108bea5516bd5d1f4230c51b27f7b239dd6bb35a97b&w=300",
+      description: "Sanjay ensures smooth financial operations and leads HR initiatives to support a productive and motivated workplace."
     },
     {
-      name: "Amit Kumar",
+      name: "Anoop Kumar",
       role: "Customer Service",
       image: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=300",
-      description: "Amit helps customers find what they need and provides product information with a friendly smile."
+      description: "Anoop helps customers find what they need and provides product information with a friendly smile."
     }
   ];
 
@@ -141,7 +141,7 @@ export default function About() {
                   started as a modest store has grown into a trusted community hub.
                 </p>
                 <p>
-                  Located in the heart of Old Manali on Mall Road, we have witnessed the town's growth 
+                  Located in the heart of Manali at 18 Mile, we have witnessed the town's growth 
                   and have been proud to serve both the local community and the thousands of tourists 
                   who visit our beautiful hill station every year.
                 </p>

@@ -36,10 +36,10 @@ interface Product {
   categoryId: string;
   subcategoryId: string;
   originalPrice?: number;
-  rating?: number;
-  reviewCount?: number;
+  // rating?: number;
+  // reviewCount?: number;
   brand?: string;
-  availability?: string;
+  // availability?: string;
   scheme?: string; 
 }
 
@@ -126,7 +126,8 @@ export default function Home() {
   );
   
   const featuredProducts = allProducts
-    .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+    // .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+    .sort(() => Math.random() - 0.5)
     .slice(0, 4);
 
   return (
@@ -291,13 +292,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
+      {/* Trending Now Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Products</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Trending Now</h2>
             <p className="text-xl text-gray-600">
-              Popular items from our store with detailed information
+              Explore what's popular and loved by our customers
             </p>
           </div>
 
@@ -308,45 +309,45 @@ export default function Home() {
             </div>
           ) : featuredProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-  {featuredProducts.map((product) => {
-    const category = categories.find(c => c.id === product.categoryId);
-    return (
-      <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-        <div className="relative flex-shrink-0">
-          <img 
-            src={product.image || 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300'} 
-            alt={product.name}
-            className="w-full h-48 object-cover rounded-t-lg"
-          />
-          <Badge className="absolute top-2 right-2 bg-blue-600">
-            {category?.name || 'Product'}
-          </Badge>
-        </div>
-        <CardHeader className="pb-2 flex-shrink-0">
-          <CardTitle className="text-lg">{product.name}</CardTitle>
-          {product.rating && (
-            <div className="flex items-center space-x-1">
-              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              <span className="text-sm text-gray-600">{product.rating}</span>
+              {featuredProducts.map((product) => {
+                const category = categories.find(c => c.id === product.categoryId);
+                return (
+                  <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                    <div className="relative flex-shrink-0">
+                      <img 
+                        src={product.image || 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300'} 
+                        alt={product.name}
+                        className="w-full h-48 object-cover rounded-t-lg"
+                      />
+                      <Badge className="absolute top-2 right-2 bg-blue-600">
+                        {category?.name || 'Product'}
+                      </Badge>
+                    </div>
+                    <CardHeader className="pb-2 flex-shrink-0">
+                      <CardTitle className="text-lg">{product.name}</CardTitle>
+                      {/* {product.rating && (
+                        <div className="flex items-center space-x-1">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          <span className="text-sm text-gray-600">{product.rating}</span>
+                        </div>
+                      )} */}
+                    </CardHeader>
+                    <CardContent className="pt-0 flex flex-col flex-grow">
+                      <p className="text-sm text-gray-600 mb-3 flex-grow">
+                        {product.description || 'Quality product from our store'}
+                      </p>
+                      <div className="flex items-center justify-between mt-auto">
+                        <span className="text-xl font-bold text-green-700">₹{product.price}</span>
+                        <Tag className="h-5 w-5 text-gray-400" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
-          )}
-        </CardHeader>
-        <CardContent className="pt-0 flex flex-col flex-grow">
-          <p className="text-sm text-gray-600 mb-3 flex-grow">
-            {product.description || 'Quality product from our store'}
-          </p>
-          <div className="flex items-center justify-between mt-auto">
-            <span className="text-xl font-bold text-green-700">₹{product.price}</span>
-            <Tag className="h-5 w-5 text-gray-400" />
-          </div>
-        </CardContent>
-      </Card>
-    );
-  })}
-</div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-600">No featured products available</p>
+              <p className="text-gray-600">No trending products available</p>
             </div>
           )}
 

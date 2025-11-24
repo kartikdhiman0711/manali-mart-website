@@ -22,6 +22,8 @@ export default function Footer() {
               <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
           
@@ -44,7 +46,7 @@ export default function Footer() {
               <li><Link target='_blank' className="hover:text-white transition-colors" href="https://maps.app.goo.gl/EUE7D2FA3eyJQTRa9?g_st=awb">Behind Bran School 17-18 Miles, Manali Distt Kullu HP</Link></li>
               <li><Link className="hover:text-white transition-colors" href="tel:+91 62303 37333">+91 62303 37333</Link></li>
               <li><Link className="hover:text-white transition-colors" href="mailto:info@manalimart.co.in">info@manalimart.co.in</Link></li>
-              <li>7 AM - 10 PM</li>
+              <li>08 AM - 09 PM</li>
             </ul>
           </div>
         </div>
