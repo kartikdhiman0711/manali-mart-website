@@ -140,13 +140,13 @@ export default function AboutClient() {
                   started as a modest store has grown into a trusted community hub.
                 </p>
                 <p>
-                  Located in the heart of Manali at 18 Mile, we have witnessed the town's growth 
+                  Located in the heart of Manali at 18 Mile, we have witnessed the town&apos;s growth 
                   and have been proud to serve both the local community and the thousands of tourists 
                   who visit our beautiful hill station every year.
                 </p>
                 <p>
                   Our commitment to quality, customer service, and community support has made us more 
-                  than just a store – we're a part of the Manali family. From fresh dairy products 
+                  than just a store we&apos;re a part of the Manali family. From fresh dairy products 
                   sourced from local farms to essential household items, we ensure that our shelves 
                   are always stocked with what our customers need.
                 </p>

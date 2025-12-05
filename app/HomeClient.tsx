@@ -287,7 +287,7 @@ export default function HomeClient() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Trending Now</h2>
             <p className="text-xl text-gray-600">
-              Explore what's popular and loved by our customers
+              Explore what&apos;s popular and loved by our customers
             </p>
           </div>
 

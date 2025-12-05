@@ -285,7 +285,7 @@ export default function PrivacyPolicy() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700 leading-relaxed">
-                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. You are advised to review  Privacy Policy periodically for any changes.
+                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date. You are advised to review  Privacy Policy periodically for any changes.
                 </p>
               </CardContent>
             </Card>
