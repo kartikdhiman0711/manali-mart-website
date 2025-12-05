@@ -116,7 +116,7 @@ export default function TermsAndConditions() {
                   <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
                     <li>Using the website for any unlawful purpose</li>
                     <li>Attempting to gain unauthorized access to our systems</li>
-                    <li>Interfering with the website's functionality</li>
+                    <li>Interfering with the website&apos;s functionality</li>
                     <li>Copying or reproducing content without permission</li>
                   </ul>
                 </div>
