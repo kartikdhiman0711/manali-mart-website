@@ -1,9 +1,21 @@
-"use client";
-
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, Lock, Eye, Database, Mail, Phone, TriangleAlert as AlertTriangle } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Learn how Manali Mart protects your privacy and handles your personal information. Our commitment to data security and customer privacy. Updated November 2025.',
+  keywords: 'privacy policy, data protection, Manali Mart privacy, customer data',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: 'https://manalimart.co.in/privacy',
+  },
+};
 
 export default function PrivacyPolicy() {
   return (

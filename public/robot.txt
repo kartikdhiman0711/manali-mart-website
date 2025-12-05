@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+Sitemap: https://manalimart.co.in/sitemap.xml
+
+Crawl-delay: 1

@@ -1,9 +1,21 @@
-"use client";
-
+import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, FileText, CircleAlert as AlertCircle, Clock, Mail, Phone } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions',
+  description: 'Read Manali Mart terms and conditions for using our services and shopping at our store. Store policies, returns, and customer guidelines. Updated November 2025.',
+  keywords: 'terms and conditions, Manali Mart policies, store terms, return policy',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: 'https://manalimart.co.in/terms',
+  },
+};
 
 export default function TermsAndConditions() {
   return (

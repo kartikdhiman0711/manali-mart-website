@@ -1,4 +1,3 @@
-// app/products/[id]/page.tsx
 "use client";
 
 import { useState, useEffect, use } from 'react';
@@ -7,7 +6,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Star, Package, Info, CheckCircle, AlertCircle, Tag } from 'lucide-react';
+import { ArrowLeft, Package, Info, CheckCircle, AlertCircle, Tag } from 'lucide-react';
 import Link from 'next/link';
 import FloatingSocialIcons from '@/components/FloatingSocialIcons';
 
@@ -21,10 +20,7 @@ interface Product {
   categoryId: string;
   subcategoryId: string;
   originalPrice?: number;
-  // rating?: number;
-  // reviewCount?: number;
   brand?: string;
-  // availability?: string;
   scheme?: string; 
 }
 
@@ -41,7 +37,15 @@ interface Subcategory {
   products: Product[];
 }
 
-export default function SingleProductPage({ params }: { params: Promise<{ id: string }> }) {
+// Helper function to generate slug
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+export default function ProductDetailClient({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
   const [product, setProduct] = useState<Product | null>(null);
   const [categoryName, setCategoryName] = useState<string>('');
@@ -53,29 +57,19 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        // Fetch all categories and products
         const res = await fetch("/api/products");
         if (!res.ok) throw new Error("Failed to fetch data");
         const categories: Category[] = await res.json();
 
-        // Trim and normalize the ID from URL
-        const searchId = String(resolvedParams.id).trim();
+        const searchSlug = resolvedParams.slug;
 
-        // Find the product by ID
         let foundProduct: Product | null = null;
         let foundCategory: Category | null = null;
         let foundSubcategory: Subcategory | null = null;
 
-        // Collect all product IDs for debugging
-        const allProductIds: string[] = [];
-
         for (const category of categories) {
           for (const subcategory of category.subcategories) {
-            subcategory.products.forEach(p => allProductIds.push(p.id));
-            const prod = subcategory.products.find(p => {
-              const dbId = String(p.id).trim();
-              return dbId === searchId;
-            });
+            const prod = subcategory.products.find(p => generateSlug(p.name) === searchSlug);
             if (prod) {
               foundProduct = prod;
               foundCategory = category;
@@ -96,7 +90,6 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
         setCategoryName(foundCategory?.name || '');
         setSubcategoryName(foundSubcategory?.name || '');
 
-        // Find similar products from the same category
         if (foundSubcategory) {
           const similar = foundSubcategory.products
             .filter(p => p.id !== foundProduct.id)
@@ -113,7 +106,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
     };
 
     fetchProductData();
-  }, [resolvedParams.id]);
+  }, [resolvedParams.slug]);
 
   if (loading) {
     return (
@@ -168,12 +161,6 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                 alt={product.name}
                 className="w-full h-96 object-cover rounded-lg shadow-lg"
               />
-              {/* <Badge className="absolute top-4 right-2 bg-green-600">
-                {product.availability || 'In Stock'}
-              </Badge> */}
-              {/* {product.originalPrice && (
-                <Badge className="absolute top-4 left-2 bg-red-600">SALE</Badge>
-              )} */}
               {product.scheme && (
                 <div className="absolute top-4 left-2 flex gap-2">
                   <Badge className="bg-red-600">SALE</Badge>
@@ -197,15 +184,6 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
               <div className="flex items-center space-x-4 mb-4">
-                {/* {product.rating && (
-                  <div className="flex items-center space-x-1">
-                    <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    <span className="text-lg font-semibold">{product.rating}</span>
-                    {product.reviewCount && (
-                      <span className="text-gray-600">({product.reviewCount} reviews)</span>
-                    )}
-                  </div>
-                )} */}
                 {product.brand && (
                   <Badge className="bg-blue-600">{product.brand}</Badge>
                 )}
@@ -214,7 +192,8 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                 <span className="text-3xl font-bold text-green-700">₹{product.price}</span>
                 {product.originalPrice && (
                   <span className="text-xl text-gray-500 line-through">₹{product.originalPrice}</span>
-                )}{product.scheme && (
+                )}
+                {product.scheme && (
                   <Badge className="bg-green-600 text-white px-3 py-1">
                     {product.scheme}
                   </Badge>
@@ -275,9 +254,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                 <CardContent className="pt-0">
                   <div className="flex items-center space-x-2 mb-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    <span className="text-green-700 font-medium">
-                      {'In Stock'}
-                    </span>
+                    <span className="text-green-700 font-medium">In Stock</span>
                   </div>
                   <p className="text-sm text-gray-600">Visit our store to purchase this product</p>
                 </CardContent>
@@ -298,15 +275,12 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                       src={similar.image || 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg'} 
                       alt={similar.name}
                       className="w-full h-48 object-cover rounded-t-lg"
-                    />{similar.scheme && (
-                  <Badge className="absolute top-2 right-2 bg-green-600">
-                    {similar.scheme}
-                  </Badge>
-                )}
-                
-                    {/* <Badge className="absolute top-2 right-2 bg-green-600">
-                      {similar.availability || 'In Stock'}
-                    </Badge> */}
+                    />
+                    {similar.scheme && (
+                      <Badge className="absolute top-2 right-2 bg-green-600">
+                        {similar.scheme}
+                      </Badge>
+                    )}
                     {similar.brand && (
                       <Badge className="absolute top-2 left-2 bg-blue-600">{similar.brand}</Badge>
                     )}
@@ -314,12 +288,6 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                   <CardHeader className="pb-2 flex-shrink-0">
                     <CardTitle className="text-lg">{similar.name}</CardTitle>
                     <div className="flex items-center justify-between">
-                      {/* {similar.rating && (
-                        <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <span className="text-sm text-gray-600">{similar.rating}</span>
-                        </div>
-                      )} */}
                       <Badge variant="secondary" className="text-xs">{subcategoryName}</Badge>
                     </div>
                   </CardHeader>
@@ -332,7 +300,7 @@ export default function SingleProductPage({ params }: { params: Promise<{ id: st
                         <span className="text-xl font-bold text-green-700">₹{similar.price}</span>
                         <Tag className="h-5 w-5 text-gray-400" />
                       </div>
-                      <Link href={`/products/${similar.id}`}>
+                      <Link href={`/products/${generateSlug(similar.name)}`}>
                         <Button className="w-full bg-green-700 hover:bg-green-800">View Details</Button>
                       </Link>
                     </div>
