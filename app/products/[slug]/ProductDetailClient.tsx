@@ -326,7 +326,7 @@ function ProductNotFound() {
           <AlertCircle className="h-24 w-24 text-gray-400 mx-auto mb-6" />
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Product Not Found</h1>
           <p className="text-xl text-gray-600 mb-8">
-            Sorry, the product you're looking for doesn't exist or may have been removed.
+            Sorry, the product you&apos;re looking for doesn&apos;t exist or may have been removed.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/products">
