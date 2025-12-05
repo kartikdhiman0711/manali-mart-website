@@ -55,7 +55,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       productPages = categories.flatMap((category: any) =>
         category.subcategories.flatMap((subcategory: any) =>
           subcategory.products.map((product: any) => ({
-            url: `${baseUrl}/products/${product.id}`,
+            url: `${baseUrl}/products/${generateSlug(product.name)}`,
             lastModified: new Date(),
             changeFrequency: 'weekly' as const,
             priority: 0.7,
@@ -68,4 +68,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   
   return [...staticPages, ...productPages];
+}
+
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
