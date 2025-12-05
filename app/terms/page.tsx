@@ -58,7 +58,7 @@ export default function TermsAndConditions() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  Welcome to Manali Mart. These Terms and Conditions ("Terms") govern your use of our website and services. By accessing or using our services, you agree to be bound by these Terms.
+                  Welcome to Manali Mart. These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these Terms.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   Manali Mart is a retail store located at 18 Mile, Manali Himachal Pradesh 175131, India, providing grocery, household, and daily essential products to our customers.

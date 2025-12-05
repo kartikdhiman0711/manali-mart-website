@@ -297,7 +297,7 @@ export default function Contact() {
                     <span>Send us a Message</span>
                   </CardTitle>
                   <CardDescription>
-                    Have a question or feedback? We'd love to hear from you.
+                    Have a question or feedback? We&apos;d love to hear from you.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
