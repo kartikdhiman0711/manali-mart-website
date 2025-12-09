@@ -296,12 +296,19 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
                       {similar.description || 'No description available'}
                     </p>
                     <div className="mt-auto">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xl font-bold text-green-700">₹{similar.price}</span>
+                      <div className="flex items-center justify-between mt-auto">
+                        <div className="flex items-baseline space-x-2">
+                          <span className="text-xl font-bold text-green-700">₹{similar.price}</span>
+                          {similar.originalPrice && (
+                            <span className="text-gray-500 line-through text-xs">
+                              ₹{similar.originalPrice}
+                            </span>
+                          )}
+                        </div>
                         <Tag className="h-5 w-5 text-gray-400" />
                       </div>
                       <Link href={`/products/${generateSlug(similar.name)}`}>
-                        <Button className="w-full bg-green-700 hover:bg-green-800">View Details</Button>
+                        <Button className="w-full bg-green-700 hover:bg-green-800">View Product</Button>
                       </Link>
                     </div>
                   </CardContent>
