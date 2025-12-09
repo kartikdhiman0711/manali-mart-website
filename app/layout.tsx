@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://manalimart.co.in'),
   title: {
-    default: 'Manali Mart - Premium Grocery Store in Manali | Fresh Products & Local Specialties',
+    default: 'Manali Mart - Your Trusted Grocery Store in Manali Since 2014',
     template: '%s | Manali Mart'
   },
-  description: 'Manali Mart is your trusted grocery store in Manali, HP offering fresh dairy products, groceries, snacks, household essentials, and local Himalayan specialties since 2014. Visit us at 18 Mile for quality products.',
+  description: 'Manali Mart - Your trusted grocery store since 2014. Fresh dairy, groceries, snacks & daily essentials. Visit us at 18 Mile, Manali. Open 8 AM-9 PM daily!',
   keywords: [
     'Manali mart',
     'grocery store Manali',
@@ -26,7 +26,10 @@ export const metadata: Metadata = {
     'mountain grocery store',
     'Manali daily needs',
     'Kullu Manali shopping',
-    'Manali retail store'
+    'Manali retail store',
+    'Himalayan grocery store',
+    'grocery store near me Manali',
+    'best grocery store Manali'
   ],
   authors: [{ name: 'Manali Mart' }],
   creator: 'Manali Mart',
@@ -41,8 +44,8 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: 'https://manalimart.co.in',
     siteName: 'Manali Mart',
-    title: 'Manali Mart - Premium Grocery Store in Manali',
-    description: 'Your trusted neighborhood store in the heart of Manali, serving quality products since 2014. Fresh dairy, groceries, and local specialties.',
+    title: 'Manali Mart - Your Trusted Grocery Store Since 2014',
+    description: 'Fresh dairy, groceries, snacks & daily essentials. Visit our store at 18 Mile, Manali. Open 8 AM-9 PM daily!',
     images: [
       {
         url: '/og-image.jpg',
@@ -54,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Manali Mart - Premium Grocery Store in Manali',
-    description: 'Your trusted neighborhood store in the heart of Manali, serving quality products since 2014.',
+    title: 'Manali Mart - Your Trusted Grocery Store Since 2014',
+    description: 'Fresh dairy, groceries, snacks. Visit us at 18 Mile, Manali. Open 8 AM-9 PM daily!',
     images: ['/og-image.jpg'],
   },
   robots: {
@@ -141,7 +144,7 @@ const jsonLd = {
       '@id': 'https://manalimart.co.in/#website',
       url: 'https://manalimart.co.in',
       name: 'Manali Mart',
-      description: 'Your trusted grocery store in Manali',
+      description: 'Your trusted grocery store in Manali since 2014',
       publisher: {
         '@id': 'https://manalimart.co.in/#organization'
       },
@@ -155,7 +158,7 @@ const jsonLd = {
       '@type': 'GroceryStore',
       '@id': 'https://manalimart.co.in/#store',
       name: 'Manali Mart',
-      description: 'Premium grocery store offering fresh dairy products, groceries, snacks, household essentials, and local Himalayan specialties.',
+      description: 'Premium grocery store offering fresh dairy products, groceries, snacks, household essentials, and quality products since 2014.',
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Behind Bran School 17-18 Miles',
