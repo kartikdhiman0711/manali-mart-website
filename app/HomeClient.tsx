@@ -40,6 +40,13 @@ interface Product {
   scheme?: string; 
 }
 
+const generateSlug = (name: string): string => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
 const heroSlides = [
   {
     title: "Grand Opening! 🎉",
@@ -164,7 +171,7 @@ export default function HomeClient() {
                     <p className="text-xl mb-8 text-gray-100">
                       {slide.description}
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex gap-4">
                       <Link href="/products">
                         <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3">
                           View Products
@@ -185,13 +192,13 @@ export default function HomeClient() {
 
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all"
+          className="absolute left-8 md:left-16 bottom-0 md:bottom-auto md:top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all"
+          className="absolute right-8 md:right-16 bottom-0 md:bottom-auto md:top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all"
         >
           <ChevronRight className="h-6 w-6" />
         </button>
@@ -326,9 +333,21 @@ export default function HomeClient() {
                         {product.description || 'Quality product from our store'}
                       </p>
                       <div className="flex items-center justify-between mt-auto">
-                        <span className="text-xl font-bold text-green-700">₹{product.price}</span>
+                        <div className="flex items-baseline space-x-2">
+                          <span className="text-xl font-bold text-green-700">₹{product.price}</span>
+                          {product.originalPrice && (
+                            <span className="text-gray-500 line-through text-xs">
+                              ₹{product.originalPrice}
+                            </span>
+                          )}
+                        </div>
                         <Tag className="h-5 w-5 text-gray-400" />
                       </div>
+                      <Link href={`/products/${generateSlug(product.name)}`}>
+                        <Button className="w-full mt-3 bg-green-700 hover:bg-green-800 text-xs py-1.5">
+                          View Details
+                        </Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 );
