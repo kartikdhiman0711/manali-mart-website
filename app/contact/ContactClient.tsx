@@ -173,7 +173,7 @@ export default function Contact() {
       title: "Call Us",
       details: [
         "+91 62303 37333",
-        "+91 79471 21545",
+        "+91 84605 39441",
         "WhatsApp: +91 62303 35333"
       ],
       action: "tel:+916230337333",
@@ -183,9 +183,9 @@ export default function Contact() {
       icon: <Mail className="h-8 w-8 text-orange-600" />,
       title: "Email Us",
       details: [
+        "Write to us at:",
         "info@manalimart.co.in",
-        "contact@manalimart.co.in",
-        "support@manalimart.co.in"
+        "manalimart@gmail.com"
       ],
       action: "mailto:info@manalimart.co.in",
       buttonText: "Send Email"
