@@ -157,9 +157,9 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
           <div className="space-y-4">
             <div className="relative">
               <img 
-                src={product.image || 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg'} 
+                src={product.image || 'https://i.ibb.co/GvNXmMc5/6725987.jpg'} 
                 alt={product.name}
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
+                className="w-full h-96 object-contain rounded-lg shadow-lg"
               />
               {product.scheme && (
                 <div className="absolute top-4 left-2 flex gap-2">
@@ -272,7 +272,7 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
                 <Card key={similar.id} className="group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                   <div className="relative flex-shrink-0">
                     <img 
-                      src={similar.image || 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg'} 
+                      src={similar.image || 'https://i.ibb.co/GvNXmMc5/6725987.jpg'} 
                       alt={similar.name}
                       className="w-full h-48 object-cover rounded-t-lg"
                     />
