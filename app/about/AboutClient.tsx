@@ -63,19 +63,19 @@ export default function AboutClient() {
     {
       name: "Varun Mahajan",
       role: "Store Owner & Manager",
-      image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300",
+      image: "https://i.ibb.co/0p2DD1GB/Chat-GPT-Image-Dec-12-2025-02-11-51-PM.png",
       description: "With over 15 years of retail experience, Varun founded Manali Mart with a vision to serve the community."
     },
     {
       name: "Sanjay Thakur",
       role: "General Manager",
-      image: "https://img.freepik.com/free-photo/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign_53876-129417.jpg?t=st=1763736496~exp=1763740096~hmac=542b781adf990b297cae6108bea5516bd5d1f4230c51b27f7b239dd6bb35a97b&w=300",
+      image: "https://i.ibb.co/1NQDVM3/Chat-GPT-Image-Dec-12-2025-02-02-49-PM.png",
       description: "Sanjay ensures smooth financial operations and leads HR initiatives to support a productive and motivated workplace."
     },
     {
       name: "Anoop Kumar",
       role: "Customer Service",
-      image: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=300",
+      image: "https://i.ibb.co/gFjfJ5p8/Chat-GPT-Image-Dec-12-2025-02-07-22-PM.png",
       description: "Anoop helps customers find what they need and provides product information with a friendly smile."
     }
   ];
@@ -158,7 +158,7 @@ export default function AboutClient() {
             </div>
             <div className="relative">
               <img 
-                src="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                src="https://i.ibb.co/CK9ghsM7/Chat-GPT-Image-Dec-12-2025-01-58-25-PM.png" 
                 alt="Manali mountains and landscape"
                 className="rounded-lg shadow-2xl"
               />
