@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import WhatsAppNoticeBanner from '@/components/WhatsAppNoticeBanner';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -228,6 +229,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <WhatsAppNoticeBanner />
       <Navbar />
       
       <FloatingSocialIcons />

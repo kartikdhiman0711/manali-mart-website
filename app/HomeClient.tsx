@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import WhatsAppNoticeBanner from '@/components/WhatsAppNoticeBanner';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -51,7 +52,7 @@ const heroSlides = [
   {
     title: "Welcome to Manali Mart! 🎉",
     subtitle: "Your Trusted Neighborhood Store",
-    description: "Fresh groceries, daily essentials, and quality products at unbeatable prices. Visit us at Behind Bran School, 17-18 Mile, Manali!",
+    description: "Fresh groceries at unbeatable prices. 17–18 Mile, Manali.",
     discount: "NEW",
     image: "https://i.ibb.co/zVHbpgbQ/Banner-1.webp",
     color: "from-green-600 to-emerald-800",
@@ -129,6 +130,7 @@ export default function HomeClient() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <WhatsAppNoticeBanner />
       <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
       <FloatingSocialIcons />
       
