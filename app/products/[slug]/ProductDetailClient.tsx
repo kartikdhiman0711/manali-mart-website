@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, use } from 'react';
+import WhatsAppNoticeBanner from '@/components/WhatsAppNoticeBanner';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -125,6 +126,7 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <WhatsAppNoticeBanner />
       <Navbar />
       
       <FloatingSocialIcons />

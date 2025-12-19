@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import WhatsAppNoticeBanner from '@/components/WhatsAppNoticeBanner';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -125,6 +126,10 @@ export default function ProductsClient() {
       setSelectedCategory(categoryId);
       setSelectedSubcategory(null);
     }
+    
+    // Clear BOGO filter when selecting category
+    setFilterBogo(false);
+    window.history.replaceState({}, '', '/products');
   };
 
   const handleSubcategorySelect = (subcategoryId: string, categoryId: string, event: React.MouseEvent) => {
@@ -132,6 +137,10 @@ export default function ProductsClient() {
     event.stopPropagation();
     setSelectedCategory(categoryId);
     setSelectedSubcategory(subcategoryId);
+    
+    // Clear BOGO filter when selecting subcategory
+    setFilterBogo(false);
+    window.history.replaceState({}, '', '/products');
   };
 
   const clearFilters = (event?: React.MouseEvent) => {
@@ -144,7 +153,9 @@ export default function ProductsClient() {
     setSearchTerm('');
     setExpandedCategories([]);
     setCurrentPage(1);
-  };
+    setFilterBogo(false);
+    window.history.replaceState({}, '', '/products');
+};
 
   const getPageTitle = () => {
     if (selectedSubcategory) {
@@ -279,6 +290,7 @@ export default function ProductsClient() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <WhatsAppNoticeBanner />
       <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
       
       <FloatingSocialIcons />
