@@ -457,7 +457,7 @@ export default function ProductsClient() {
                           }`}
                         />
                         {(product.scheme) && (
-                          <Badge className="absolute top-1 left-1 bg-green-600 text-xs px-1 py-0.5">
+                          <Badge className="absolute top-1 left-1 bg-red-600 text-xs px-1 py-0.5">
                             {product.scheme}
                           </Badge>
                         )}

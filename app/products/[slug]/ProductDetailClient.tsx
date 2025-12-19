@@ -166,7 +166,7 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
               {product.scheme && (
                 <div className="absolute top-4 left-2 flex gap-2">
                   <Badge className="bg-red-600">SALE</Badge>
-                  <Badge className="bg-green-600">{product.scheme}</Badge>
+                  <Badge className="bg-red-600">{product.scheme}</Badge>
                 </div>
               )}
             </div>
@@ -201,7 +201,7 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
                   </>
                 )}
                 {product.scheme && (
-                  <Badge className="bg-green-600 text-white px-3 py-1">
+                  <Badge className="bg-red-600 text-white px-3 py-1">
                     {product.scheme}
                   </Badge>
                 )}
@@ -284,7 +284,7 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
                       className="w-full h-48 object-cover rounded-t-lg"
                     />
                     {similar.scheme && (
-                      <Badge className="absolute top-2 right-2 bg-green-600">
+                      <Badge className="absolute top-2 right-2 bg-red-600">
                         {similar.scheme}
                       </Badge>
                     )}

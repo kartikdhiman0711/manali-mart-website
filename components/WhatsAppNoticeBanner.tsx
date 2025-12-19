@@ -13,13 +13,13 @@ export default function WhatsAppNoticeBanner() {
           <div className="flex items-center space-x-3 flex-1">
             <MessageCircle className="h-5 w-5 flex-shrink-0 animate-pulse" />
             <p className="text-sm sm:text-base font-medium">
-              <span className="hidden sm:inline">📱 Orders are currently accepted via WhatsApp only. </span>
+              <span className="hidden sm:inline">📱 Orders are currently accepted via <span className='text-yellow-400 font-bold'>WhatsApp</span> only. </span>
               <span className="sm:hidden">📱 WhatsApp orders only. </span>
               <a 
                 href="https://wa.me/916230335333?text=Greetings!%20%F0%9F%91%8B%20%0AWhat%20would%20you%20like%20to%20order%20from%20Manali%20Mart%3F"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline font-bold hover:text-yellow-300 transition-colors"
+                className="underline font-bold text-yellow-400 hover:text-yellow-300 transition-colors"
               >
                 Click here to order
               </a>
