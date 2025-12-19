@@ -49,12 +49,13 @@ const generateSlug = (name: string): string => {
 
 const heroSlides = [
   {
-    title: "Grand Opening! 🎉",
-    subtitle: "Now Open in Manali",
-    description: "Visit us at Behind Bran School, 17-18 Mile, Manali. Fresh groceries at unbeatable prices!",
+    title: "Welcome to Manali Mart! 🎉",
+    subtitle: "Your Trusted Neighborhood Store",
+    description: "Fresh groceries, daily essentials, and quality products at unbeatable prices. Visit us at Behind Bran School, 17-18 Mile, Manali!",
     discount: "NEW",
-    image: "https://img.freepik.com/free-vector/shiny-grand-opening-ceremony-invitation-background-business-start-up_1017-61349.jpg?t=st=1765278368~exp=1765281968~hmac=c61797c859a84014c6c3f15a0aa2d22bdc307f0beb4c29aed0456efd91c11928&w=1060",
+    image: "https://i.ibb.co/zVHbpgbQ/Banner-1.webp",
     color: "from-green-600 to-emerald-800",
+    viewProductsLink: "/products",
     learnMoreLink: "/about"
   },
   {
@@ -62,26 +63,19 @@ const heroSlides = [
     subtitle: "On Selected Products",
     description: "Amazing BOGO deals on snacks, beverages, and daily essentials. Limited time offer!",
     discount: "BOGO",
-    image: "https://img.freepik.com/free-vector/buy-one-get-1-free-festive-season-sale-background_1017-55141.jpg?ga=GA1.1.1109938171.1765277558&semt=ais_se_enriched&w=740&q=80",
+    image: "https://i.ibb.co/WpHPSW2s/Banner-2.webp",
     color: "from-orange-600 to-red-600",
-    learnMoreLink: "/products"
+    viewProductsLink: "/products?filter=buy one get one",
+    learnMoreLink: "/products?filter=buy one get one"
   },
   {
     title: "Lowest Prices Guaranteed",
     subtitle: "Quality Products, Budget Prices",
     description: "Shop smart with our everyday low prices on groceries, household items, and more",
     discount: "LOW PRICE",
-    image: "https://img.freepik.com/free-vector/alert-price-drop-banner-show-now-get-lowest-price-product_1017-45355.jpg?ga=GA1.1.1109938171.1765277558&semt=ais_se_enriched&w=740&q=80",
-    color: "from-teal-500 to-green-700",
-    learnMoreLink: "/products"
-  },
-  {
-    title: "Special Launch Offers",
-    subtitle: "Free Gifts with Purchase",
-    description: "Shop for ₹500 and get exciting free gifts! Plus exclusive deals on bulk purchases",
-    discount: "FREE GIFT",
-    image: "https://img.freepik.com/free-vector/special-offer-creative-sale-banner-design_1017-16284.jpg?ga=GA1.1.1109938171.1765277558&w=740&q=80",
-    color: "from-purple-600 to-pink-600",
+    image: "https://i.ibb.co/xtPkwtLs/Banner-3.webp",
+    color: "from-green-600 to-emerald-800",
+    viewProductsLink: "/products",
     learnMoreLink: "/products"
   }
 ];
@@ -172,7 +166,7 @@ export default function HomeClient() {
                       {slide.description}
                     </p>
                     <div className="flex gap-4">
-                      <Link href="/products">
+                      <Link href={heroSlides[currentSlide].viewProductsLink}>
                         <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3">
                           View Products
                         </Button>
@@ -333,12 +327,17 @@ export default function HomeClient() {
                         {product.description || 'Quality product from our store'}
                       </p>
                       <div className="flex items-center justify-between mt-auto">
-                        <div className="flex items-baseline space-x-2">
+                        <div className="flex flex-col items-start">
                           <span className="text-xl font-bold text-green-700">₹{product.price}</span>
-                          {product.originalPrice && (
-                            <span className="text-gray-500 line-through text-xs">
-                              ₹{product.originalPrice}
-                            </span>
+                          {product.originalPrice && product.originalPrice > product.price && (
+                            <div className="flex items-center space-x-2">
+                              <span className="text-gray-500 line-through text-xs">
+                                ₹{product.originalPrice}
+                              </span>
+                              <Badge className="bg-red-600 text-white text-xs px-1.5 py-0.5">
+                                {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                              </Badge>
+                            </div>
                           )}
                         </div>
                         <Tag className="h-5 w-5 text-gray-400" />

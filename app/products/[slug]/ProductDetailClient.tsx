@@ -190,8 +190,13 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
               </div>
               <div className="flex items-center space-x-4 mb-6">
                 <span className="text-3xl font-bold text-green-700">₹{product.price}</span>
-                {product.originalPrice && (
-                  <span className="text-xl text-gray-500 line-through">₹{product.originalPrice}</span>
+                {product.originalPrice && product.originalPrice > product.price && (
+                  <>
+                    <span className="text-xl text-gray-500 line-through">₹{product.originalPrice}</span>
+                    <Badge className="bg-red-600 text-white px-3 py-1.5 text-lg">
+                      {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                    </Badge>
+                  </>
                 )}
                 {product.scheme && (
                   <Badge className="bg-green-600 text-white px-3 py-1">
@@ -296,13 +301,18 @@ export default function ProductDetailClient({ params }: { params: Promise<{ slug
                       {similar.description || 'No description available'}
                     </p>
                     <div className="mt-auto">
-                      <div className="flex items-center justify-between mt-auto">
-                        <div className="flex items-baseline space-x-2">
+                      <div className="flex items-center justify-between mt-auto mb-3">
+                        <div className="flex flex-col items-start">
                           <span className="text-xl font-bold text-green-700">₹{similar.price}</span>
-                          {similar.originalPrice && (
-                            <span className="text-gray-500 line-through text-xs">
-                              ₹{similar.originalPrice}
-                            </span>
+                          {similar.originalPrice && similar.originalPrice > similar.price && (
+                            <div className="flex items-center space-x-2">
+                              <span className="text-gray-500 line-through text-xs">
+                                ₹{similar.originalPrice}
+                              </span>
+                              <Badge className="bg-red-600 text-white text-xs px-1.5 py-0.5">
+                                {Math.round(((similar.originalPrice - similar.price) / similar.originalPrice) * 100)}% OFF
+                              </Badge>
+                            </div>
                           )}
                         </div>
                         <Tag className="h-5 w-5 text-gray-400" />

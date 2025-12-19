@@ -59,6 +59,7 @@ export default function ProductsClient() {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterBogo, setFilterBogo] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,18 +78,28 @@ export default function ProductsClient() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+  // Check URL for filter parameter
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('filter') === 'buy one get one') {
+    setFilterBogo(true);
+  }
+}, []);
+
   const allProducts = categories.flatMap((cat) =>
     cat.subcategories.flatMap((sub) => sub.products)
   );
 
   const filteredProducts = allProducts.filter(product => {
-    const matchesCategory = !selectedCategory || product.categoryId === selectedCategory;
-    const matchesSubcategory = !selectedSubcategory || product.subcategoryId === selectedSubcategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                         (product.brand && product.brand.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesCategory && matchesSubcategory && matchesSearch;
-  }).sort((a, b) => a.name.localeCompare(b.name));
+  const matchesCategory = !selectedCategory || product.categoryId === selectedCategory;
+  const matchesSubcategory = !selectedSubcategory || product.subcategoryId === selectedSubcategory;
+  const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                       (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                       (product.brand && product.brand.toLowerCase().includes(searchTerm.toLowerCase()));
+  const matchesBogo = !filterBogo || (product.scheme && product.scheme.toLowerCase().includes('buy one get one'));
+  
+  return matchesCategory && matchesSubcategory && matchesSearch && matchesBogo;
+}).sort((a, b) => a.name.localeCompare(b.name));
 
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
@@ -377,7 +388,12 @@ export default function ProductsClient() {
               
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{getPageTitle()}</h1>
+                  <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
+                    {getPageTitle()}
+                    {filterBogo && (
+                      <Badge className="ml-2 bg-orange-600">BOGO Offers Only</Badge>
+                    )}
+                  </h1>
                   <p className="text-sm sm:text-base text-gray-600 mt-1">
                     {filteredProducts.length} products found
                     {totalPages > 1 && ` (Page ${currentPage} of ${totalPages})`}
@@ -463,18 +479,23 @@ export default function ProductsClient() {
                           
                           <div className="mt-auto">
                             <div className="flex items-center justify-between mb-2">
-                              <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-2">
+                              <div className="flex flex-col items-start space-y-0.5">
                                 <span className={`font-bold text-green-700 ${
                                   viewMode === 'list' ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'
                                 }`}>
                                   ₹{product.price}
                                 </span>
-                                {product.originalPrice && (
-                                  <span className={`text-gray-500 line-through ${
-                                    viewMode === 'list' ? 'text-xs' : 'text-xs'
-                                  }`}>
-                                    ₹{product.originalPrice}
-                                  </span>
+                                {product.originalPrice && product.originalPrice > product.price && (
+                                  <div className="flex items-center space-x-1.5">
+                                    <span className={`text-gray-500 line-through ${
+                                      viewMode === 'list' ? 'text-xs' : 'text-xs'
+                                    }`}>
+                                      ₹{product.originalPrice}
+                                    </span>
+                                    <Badge className="bg-red-600 text-white text-xs px-1 py-0">
+                                      {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                                    </Badge>
+                                  </div>
                                 )}
                               </div>
                               <Tag className="h-3 w-3 text-gray-400" />

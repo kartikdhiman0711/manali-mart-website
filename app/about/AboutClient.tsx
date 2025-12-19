@@ -63,19 +63,19 @@ export default function AboutClient() {
     {
       name: "Varun Mahajan",
       role: "Store Owner & Manager",
-      image: "https://i.ibb.co/0p2DD1GB/Chat-GPT-Image-Dec-12-2025-02-11-51-PM.png",
+      image: "https://i.ibb.co/spy1Ftnq/Varun-Mahajan.webp",
       description: "With over 15 years of retail experience, Varun founded Manali Mart with a vision to serve the community."
     },
     {
       name: "Sanjay Thakur",
       role: "General Manager",
-      image: "https://i.ibb.co/1NQDVM3/Chat-GPT-Image-Dec-12-2025-02-02-49-PM.png",
+      image: "https://i.ibb.co/xK2yhKDH/Sanjay-Thakur.webp",
       description: "Sanjay ensures smooth financial operations and leads HR initiatives to support a productive and motivated workplace."
     },
     {
       name: "Anoop Kumar",
       role: "Customer Service",
-      image: "https://i.ibb.co/gFjfJ5p8/Chat-GPT-Image-Dec-12-2025-02-07-22-PM.png",
+      image: "https://i.ibb.co/GByC9rV/Arun-Kumar.webp",
       description: "Anoop helps customers find what they need and provides product information with a friendly smile."
     }
   ];
@@ -158,7 +158,7 @@ export default function AboutClient() {
             </div>
             <div className="relative">
               <img 
-                src="https://i.ibb.co/CK9ghsM7/Chat-GPT-Image-Dec-12-2025-01-58-25-PM.png" 
+                src="https://i.ibb.co/VWBrLpzD/Store-Outside.webp" 
                 alt="Manali mountains and landscape"
                 className="rounded-lg shadow-2xl"
               />
