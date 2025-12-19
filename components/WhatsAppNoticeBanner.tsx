@@ -16,7 +16,7 @@ export default function WhatsAppNoticeBanner() {
               <span className="hidden sm:inline">📱 Orders are currently accepted via <span className='text-yellow-400 font-bold'>WhatsApp</span> only. </span>
               <span className="sm:hidden">📱 WhatsApp orders only. </span>
               <a 
-                href="https://wa.me/916230335333?text=Greetings!%20%F0%9F%91%8B%20%0AWhat%20would%20you%20like%20to%20order%20from%20Manali%20Mart%3F"
+                href="https://wa.me/916230335333?text=Hello%20%F0%9F%91%8B%0AI%20would%20like%20to%20place%20an%20order%20%F0%9F%9B%8D%EF%B8%8F%0APlease%20assist%20%F0%9F%99%8F"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline font-bold text-yellow-400 hover:text-yellow-300 transition-colors"

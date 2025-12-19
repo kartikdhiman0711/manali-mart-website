@@ -5,7 +5,7 @@ import { MessageCircle, Facebook, Instagram, Phone } from 'lucide-react';
 export default function FloatingSocialIcons() {
   const handleWhatsAppClick = () => {
     const phoneNumber = "916230335333";
-    const message = "Greetings! 👋 \nWhat would you like to order from Manali Mart?";
+    const message = "Hello 👋\n\n" + "I would like to place an order 🛍️\n" + "Please assist 🙏";
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
